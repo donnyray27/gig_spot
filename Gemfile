@@ -13,6 +13,7 @@ gem 'fog-aws'
 gem 'mini_magick'
 gem 'validates_zipcode'
 gem "time_splitter"
+gem 'turbolinks', '~> 5'
 gem 'react-rails'
 
 group :development do
