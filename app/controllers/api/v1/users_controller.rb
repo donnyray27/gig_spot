@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
 
-  def show
-    @user = User.find(params[:id])
+  def index
+    @user = User.all
   end
 end
