@@ -45,7 +45,7 @@
     <label>Upload an Avatar</label>
       <%= image_tag(@user.avatar_url) if @user.avatar? %>
       <%= f.file_field :avatar %>
-      </p>
+  </p>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
