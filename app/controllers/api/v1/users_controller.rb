@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
 
   def index
-    @user = User.first
+    @user = User.all
   end
 end

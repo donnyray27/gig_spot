@@ -16,7 +16,7 @@ handleClick(){
   render() {
     return(
       <div>
-        <h1>{this.props.name}</h1>
+        <h1>{this.props.data.first_name}</h1>
         <h2>{this.state.myName}</h2>
         <h3 onClick={this.handleClick}>{this.state.numClicks}</h3>
       </div>
