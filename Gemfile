@@ -15,6 +15,8 @@ gem 'validates_zipcode'
 gem "time_splitter"
 gem 'turbolinks', '~> 5'
 gem 'react-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 group :development do
   gem 'listen', '~> 3.0.5'
