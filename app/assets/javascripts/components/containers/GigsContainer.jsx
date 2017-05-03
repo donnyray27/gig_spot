@@ -3,9 +3,8 @@ class GigsContainer extends React.Component {
     super(props)
   }
 
-
   render(){
-      let gigs = this.props.data.map(gig => {
+      let gigs = this.props.gigs.map(gig => {
         return(
         <Gig
           key={gig.id}
