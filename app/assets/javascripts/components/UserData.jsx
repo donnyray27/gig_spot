@@ -1,6 +1,14 @@
 class UserData extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      data: this.props.data,
+      instruments: this.props.instruments,
+      genres: this.props.genres,
+      gigs: this.props.gigs,
+      gigRequests: this.props.gigRequests,
+      bandRequests: this.props.bandRequests
+    }
 
   }
 
@@ -14,8 +22,13 @@ class UserData extends React.Component {
 
         </div>
 
-        <h1>{this.props.data.first_name} {this.props.data.last_name}</h1>
-        <h2>{this.props.data.bio}</h2>
+        <h1>{this.state.data.first_name} {this.state.data.last_name}</h1>
+        <h2>{this.state.data.bio}</h2>
+        <InstrumentsContainer instruments={this.state.instruments}/>
+        <GenresContainer genres={this.state.genres} />
+        <GigsContainer gigs={this.state.gigs} />
+        <GigRequestsContainer gigRequests={this.state.gigRequests} />
+        <BandRequestsContainer bandRequests={this.state.bandRequests}/>
       </div>
 
     )

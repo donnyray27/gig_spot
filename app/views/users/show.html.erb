@@ -1,11 +1,7 @@
-<%= react_component 'UserData', { data: @user } %>
-
-<%= react_component 'Instruments', { data: @user_instruments } %>
-
-<%= react_component 'Genres', { data: @user_genres } %>
-
-<%= react_component 'GigsContainer', { data: @user_gigs } %>
-
-<%= react_component 'GigRequestsContainer', { data: @user_gig_requests } %>
-
-<%= react_component 'BandRequestsContainer', { data: @user_band_requests } %>
+<%= react_component 'UserData', { data: @user,
+                                  instruments: @user_instruments,
+                                  genres: @user_genres,
+                                  gigs: @user_gigs,
+                                  gigRequests: @user_gig_requests,
+                                  bandRequests: @user_band_requests
+                                  } %>

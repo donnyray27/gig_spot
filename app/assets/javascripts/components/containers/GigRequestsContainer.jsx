@@ -5,12 +5,14 @@ class GigRequestsContainer extends React.Component {
 
 
   render(){
-      let gigRequests = this.props.data.map(gigRequest => {
+      let gigRequests = this.props.gigRequests.map(gigRequest => {
         return(
-          <tr key={gigRequest.id}>
-            <td>{gigRequest.title}</td>
-            <td>{gigRequest.updated_at}</td>
-          </tr>
+          <GigRequest
+            key={gigRequest.id}
+            title={gigRequest.title}
+            updatedAt={gigRequest.updated_at}
+            />
+        
       )
     })
     return(

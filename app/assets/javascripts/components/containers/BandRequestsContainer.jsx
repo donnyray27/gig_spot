@@ -5,13 +5,14 @@ class BandRequestsContainer extends React.Component {
 
 
   render(){
-      let bandRequests = this.props.data.map(bandRequest => {
+      let bandRequests = this.props.bandRequests.map(bandRequest => {
         return(
-          <tr key={bandRequest.id}>
-            <td>{bandRequest.title}</td>
-            <td>{bandRequest.name}</td>
-            <td>{bandRequest.updated_at}</td>
-          </tr>
+          <BandRequest
+            key={bandRequest.id}
+            title={bandRequest.title}
+            name={bandRequest.name}
+            updatedAt={bandRequest.updated_at}
+            />
       )
     })
     return(
