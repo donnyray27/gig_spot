@@ -19,7 +19,7 @@ class UserData extends React.Component {
       credentials: 'same-origin',
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: gig.json()
+      body: JSON.stringify(gig)
     })
       .then(response => {
         if (response.ok) {
@@ -33,7 +33,7 @@ class UserData extends React.Component {
       .then(response => response.json())
       .then(response => {
         console.log(response)
-        this.setState({ gigs: response });
+        this.setState({ gigs: [response]});
       })
   }
 

@@ -39,10 +39,10 @@ class Gig extends React.Component {
     let description = this.state.description;
     let gig = {
       id: this.props.id,
-      venue: venue ,
+      venue: venue,
       address: address,
+      description: description,
       dateTime: dateTime,
-      description: description
     };
     this.props.handleUpdate(gig);
     this.setState({editable: !this.state.editable});
