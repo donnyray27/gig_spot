@@ -7,6 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "GigSpot" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css">
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
@@ -62,5 +63,7 @@
     <%= yield %>
 
 
+
+    <script src="https://unpkg.com/react-select/dist/react-select.js"></script>
   </body>
 </html>

@@ -10,5 +10,6 @@ class UsersController < ApplicationController
     @user_gigs = @user.gigs
     @user_gig_requests = @user.gig_requests
     @user_band_requests = @user.band_requests
+    @all_genres = Genre.all
   end
 end

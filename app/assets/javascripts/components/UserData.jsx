@@ -100,7 +100,7 @@ class UserData extends React.Component {
 
     let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig}/>
                                         <button onClick={this.handleCreate}>Cancel</button></div> :
-                                          <button onClick={this.handleCreate}>Add a Gig</button>
+                                        <button onClick={this.handleCreate}>Add a Gig</button>
     return(
       /*<ComboDatePicker order="mdy" minDate={new Date('2017-01-01')}
                                   maxDate={new Date('2018-12-31')}/>*/
