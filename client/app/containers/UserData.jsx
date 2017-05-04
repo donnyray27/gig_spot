@@ -1,4 +1,12 @@
-class UserData extends React.Component {
+import React, { Component } from 'react'
+import GigNew from '../components/GigNew'
+import InstrumentsContainer from './InstrumentsContainer'
+import GenresContainer from './GenresContainer'
+import GigsContainer from './GigsContainer'
+import GigRequestsContainer from './GigRequestsContainer'
+import BandRequestsContainer from './BandRequestsContainer'
+
+class UserData extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -128,3 +136,5 @@ class UserData extends React.Component {
     )
   }
 }
+
+export default UserData

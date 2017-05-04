@@ -1,4 +1,6 @@
-class Instrument extends React.Component {
+import React, { Component } from 'react'
+
+class Instrument extends Component {
   constructor(props){
     super(props)
   }
@@ -11,3 +13,5 @@ class Instrument extends React.Component {
     )
   }
 }
+
+export default Instrument

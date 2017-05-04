@@ -6,6 +6,7 @@
 
 <%= link_to "Sign Out", destroy_user_session_path, method: :delete  %>
 
+<%= react_component "DateTime" %>
 <% genres = Genre.all %>
 <%= react_component "GenresIndex", { allGenres: genres} %>
 

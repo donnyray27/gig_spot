@@ -1,4 +1,7 @@
-class GenresContainer extends React.Component {
+import React, { Component } from 'react'
+import Genre from '../components/Genre'
+
+class GenresContainer extends Component {
   constructor(props){
     super(props)
   }
@@ -20,3 +23,5 @@ class GenresContainer extends React.Component {
     )
   }
 }
+
+export default GenresContainer

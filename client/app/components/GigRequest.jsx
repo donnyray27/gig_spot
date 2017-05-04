@@ -1,4 +1,5 @@
-class GigRequest extends React.Component {
+import React, { Component } from 'react'
+class GigRequest extends Component {
 
 
 
@@ -11,3 +12,5 @@ class GigRequest extends React.Component {
     )
   }
 }
+
+export default GigRequest
