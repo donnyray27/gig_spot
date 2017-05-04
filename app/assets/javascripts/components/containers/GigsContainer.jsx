@@ -1,17 +1,30 @@
 class GigsContainer extends React.Component {
   constructor(props){
     super(props)
+    this.onUpdate = this.onUpdate.bind(this)
+    this.onDelete = this.onDelete.bind(this)
   }
+
+  onUpdate(gig) {
+      this.props.onUpdate(gig);
+  }
+
+  onDelete(id) {
+       this.props.handleDelete(id)
+   }
 
   render(){
       let gigs = this.props.gigs.map(gig => {
         return(
         <Gig
           key={gig.id}
+          id={gig.id}
           venue={gig.venue}
           address={gig.address}
-          datetime={gig.event_date}
+          dateTime={gig.event_date}
           description={gig.description}
+          handleUpdate={this.onUpdate}
+          handleDelete={this.onDelete.bind(this, gig.id)}
           />
       )
     })

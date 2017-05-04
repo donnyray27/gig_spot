@@ -4,8 +4,16 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore environment variables
+.env
+
 # Ignore bundler config.
 /.bundle
+
+-#Ignore JS
+ -/node_modules
+ -/app/assets/javascripts/bundle.js
+ -/react/coverage
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -16,13 +24,5 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-#Ignore JS
-/node_modules
-/app/assets/javascripts/bundle.js
-/react/coverage
-
 # Ignore uploaded files in test/development
 /public/uploads
-
-# Ignore environment variables
-.env
