@@ -10,6 +10,11 @@
 # Ignore bundler config.
 /.bundle
 
+-#Ignore JS
+ -/node_modules
+ -/app/assets/javascripts/bundle.js
+ -/react/coverage
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
