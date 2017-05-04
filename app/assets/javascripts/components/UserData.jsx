@@ -13,6 +13,7 @@ class UserData extends React.Component {
     this.handleGigUpdate = this.handleGigUpdate.bind(this)
     this.handleNewGig = this.handleNewGig.bind(this)
     this.handleCreate = this.handleCreate.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleCreate(){
@@ -20,6 +21,31 @@ class UserData extends React.Component {
       addingAGig: !this.state.addingAGig
     })
   }
+
+  handleDelete(id) {
+    let userId = this.props.user.id
+   if(confirm("Are you sure you want to delete this?") == true){
+    fetch(`/api/v1/users/${userId}/gigs/${id}`, {
+    credentials: 'same-origin',
+    method: 'DELETE'
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      this.setState({ gigs: response});
+    })
+    }
+  }
+
   handleGigUpdate(gig) {
       let userId = this.props.user.id
       fetch(`/api/v1/users/${userId}/gigs/${gig.id}`, {
@@ -46,27 +72,29 @@ class UserData extends React.Component {
 
   handleNewGig(gig) {
       let userId = this.props.user.id
-      fetch(`/api/v1/users/${userId}/gigs`, {
-      credentials: 'same-origin',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(gig)
-    })
-      .then(response => {
-        if (response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-              error = new Error(errorMessage);
-          throw(error);
-        }
+
+        fetch(`/api/v1/users/${userId}/gigs`, {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(gig)
       })
-      .then(response => response.json())
-      .then(response => {
-        console.log(response)
-        this.setState({ gigs: response});
-      })
-  }
+        .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            let errorMessage = `${response.status} (${response.statusText})`,
+                error = new Error(errorMessage);
+            throw(error);
+          }
+        })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+          this.setState({ gigs: response});
+        })
+    }
+
 
   render() {
 
@@ -86,7 +114,9 @@ class UserData extends React.Component {
         {addGig}
 
         <GigsContainer gigs={this.state.gigs}
-          onUpdate={this.handleGigUpdate} />
+          onUpdate={this.handleGigUpdate}
+          handleDelete={this.handleDelete}
+          />
 
         <GigRequestsContainer
           gigRequests={this.state.gigRequests}

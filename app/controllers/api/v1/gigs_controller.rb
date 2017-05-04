@@ -24,6 +24,13 @@ class Api::V1::GigsController < ApplicationController
     render json: user_gigs
   end
 
+  def destroy
+    gig = Gig.find(params[:id])
+    gig.destroy
+    user_gigs = Gig.where(user_id: params[:user_id])
+    render json: user_gigs
+  end
+
   def gig_params
     params.fetch(:gig).permit(
     :venue,

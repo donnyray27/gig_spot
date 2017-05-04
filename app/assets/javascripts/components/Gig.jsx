@@ -61,7 +61,7 @@ class Gig extends React.Component {
         {dateTime}
         {description}
         <td><button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button></td>
-        <td>Delete</td>
+        <td><button onClick={this.props.handleDelete}>Delete</button></td>
       </tr>
     )
   }
