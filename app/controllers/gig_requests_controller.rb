@@ -12,9 +12,8 @@ class GigRequestsController < ApplicationController
                           instruments: gig_instruments
                         }
     end
+    @all_genres = Genre.all.pluck(:name)
+    @all_instruments = Instrument.all.pluck(:name)
   end
 
-  def show
-
-  end
 end
