@@ -12,7 +12,7 @@ class InstrumentsContainer extends React.Component {
         return(
         <Instrument
           key={instrument.id}
-          instrumentName={instrument.name}
+          instrumentName={instrument}
           />
       )
     })
