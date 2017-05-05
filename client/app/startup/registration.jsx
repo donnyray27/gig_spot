@@ -3,11 +3,13 @@ import ReactOnRails from 'react-on-rails';
 import HelloWorld from '../bundles/HelloWorld/components/HelloWorld';
 import DateTime from '../bundles/HelloWorld/components/DateTime';
 import UserData from '../containers/UserData';
-import InstrumentsIndex from '../components/InstrumentsIndex'
+import GigRequestIndex from '../containers/GigRequestIndex'
+import BandRequestIndex from '../containers/BandRequestIndex'
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
   HelloWorld,
   DateTime,
   UserData,
-  InstrumentsIndex,
+  GigRequestIndex,
+  BandRequestIndex
 });

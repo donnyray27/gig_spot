@@ -14,7 +14,7 @@ class GenresContainer extends Component {
         return(
         <Genre
           key={genre.id}
-          genre={genre}
+          genreName={genre}
           />
       )
     })
