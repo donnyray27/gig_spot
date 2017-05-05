@@ -6,6 +6,7 @@ import GigsContainer from './GigsContainer'
 import GigRequestsContainer from './GigRequestsContainer'
 import BandRequestsContainer from './BandRequestsContainer'
 import GenreUpdateContainer from './GenreUpdateContainer'
+import InstrumentUpdateContainer from './InstrumentUpdateContainer'
 
 class UserData extends Component {
   constructor(props){
@@ -18,7 +19,8 @@ class UserData extends Component {
       gigRequests: this.props.gigRequests,
       bandRequests: this.props.bandRequests,
       addingAGig: false,
-      editingGenre: false
+      editingGenre: false,
+      editingInstrument: false
     }
     this.handleGigUpdate = this.handleGigUpdate.bind(this)
     this.handleNewGig = this.handleNewGig.bind(this)
@@ -26,8 +28,13 @@ class UserData extends Component {
     this.handleDelete = this.handleDelete.bind(this)
     this.handleGenreUpdate = this.handleGenreUpdate.bind(this)
     this.handleEditGenre = this.handleEditGenre.bind(this)
+    this.handleEditInstrument = this.handleEditInstrument.bind(this)
+    this.handleInstrumentUpdate = this.handleInstrumentUpdate.bind(this)
   }
 
+  handleEditInstrument(){
+    this.setState({editingInstrument: !this.state.editingInstrument})
+  }
   handleEditGenre(){
     this.setState({editingGenre: !this.state.editingGenre})
   }
@@ -138,6 +145,33 @@ class UserData extends Component {
       })
     }
 
+    handleInstrumentUpdate(instrument){
+      let userId = this.props.user.id
+      let update = {
+        instrumentUpdate: instrument
+      }
+      fetch(`/api/v1/users/${userId}`, {
+      credentials: 'same-origin',
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(update)
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        this.setState({ instruments: response});
+      })
+    }
+
 
   render() {
 
@@ -155,6 +189,16 @@ class UserData extends Component {
                         </div> :
                       <button onClick={this.handleEditGenre}>Edit</button>
 
+  let editInstrument = this.state.editingInstrument ?
+                                    <div><InstrumentUpdateContainer
+                                            allInstruments={this.props.instrumentsAll}
+                                            userInstruments={this.state.instruments}
+                                            onUpdate={this.handleInstrumentUpdate}
+                                            />
+                                          <button onClick={this.handleEditInstrument}>Done</button>
+                                    </div> :
+                                  <button onClick={this.handleEditInstrument}>Edit</button>
+
     return(
       <div className ="row">
         <h1>{this.state.user.first_name} {this.state.user.last_name}</h1>
@@ -167,14 +211,13 @@ class UserData extends Component {
     <fieldset>
         <legend>Instruments</legend>
         <InstrumentsContainer instruments={this.state.instruments}/>
+        {editInstrument}
       </fieldset>
 
       <fieldset>
         <legend>Genres</legend>
         <GenresContainer
           genres={this.state.genres}
-          allGenres={this.props.genresAll}
-          onUpdate={this.handleGenreUpdate}
           />
         {editGenre}
       </fieldset>
