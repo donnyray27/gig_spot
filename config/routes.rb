@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'application#home'
 
   resources :users, only: [:show]
+  resources :gig_requests, only: [:index, :show]
+  resources :band_requests, only: [:index, :show]
 
   namespace :api do
     namespace :v1 do
