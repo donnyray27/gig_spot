@@ -5,6 +5,7 @@ import GenresContainer from './GenresContainer'
 import GigsContainer from './GigsContainer'
 import GigRequestsContainer from './GigRequestsContainer'
 import BandRequestsContainer from './BandRequestsContainer'
+import GenreUpdateContainer from './GenreUpdateContainer'
 
 class UserData extends Component {
   constructor(props){
@@ -16,12 +17,19 @@ class UserData extends Component {
       gigs: this.props.gigs,
       gigRequests: this.props.gigRequests,
       bandRequests: this.props.bandRequests,
-      addingAGig: false
+      addingAGig: false,
+      editingGenre: false
     }
     this.handleGigUpdate = this.handleGigUpdate.bind(this)
     this.handleNewGig = this.handleNewGig.bind(this)
     this.handleCreate = this.handleCreate.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleGenreUpdate = this.handleGenreUpdate.bind(this)
+    this.handleEditGenre = this.handleEditGenre.bind(this)
+  }
+
+  handleEditGenre(){
+    this.setState({editingGenre: !this.state.editingGenre})
   }
 
   handleCreate(){
@@ -103,34 +111,99 @@ class UserData extends Component {
         })
     }
 
+    handleGenreUpdate(genre){
+      let userId = this.props.user.id
+      let update = {
+        genreUpdate: genre
+      }
+      fetch(`/api/v1/users/${userId}`, {
+      credentials: 'same-origin',
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(update)
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        this.setState({ genres: response});
+      })
+    }
+
 
   render() {
 
     let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig}/>
                                         <button onClick={this.handleCreate}>Cancel</button></div> :
                                         <button onClick={this.handleCreate}>Add a Gig</button>
+
+  let editGenre = this.state.editingGenre ?
+                        <div><GenreUpdateContainer
+                                allGenres={this.props.genresAll}
+                                userGenres={this.state.genres}
+                                onUpdate={this.handleGenreUpdate}
+                                />
+                              <button onClick={this.handleEditGenre}>Done</button>
+                        </div> :
+                      <button onClick={this.handleEditGenre}>Edit</button>
+
     return(
-      /*<ComboDatePicker order="mdy" minDate={new Date('2017-01-01')}
-                                  maxDate={new Date('2018-12-31')}/>*/
-      <div>
+      <div className ="row">
         <h1>{this.state.user.first_name} {this.state.user.last_name}</h1>
-        <h2>{this.state.user.bio}</h2>
+
+        <fieldset>
+          <legend>Bio</legend>
+          <h5>{this.state.user.bio}</h5>
+        </fieldset>
+
+    <fieldset>
+        <legend>Instruments</legend>
         <InstrumentsContainer instruments={this.state.instruments}/>
+      </fieldset>
 
-        <GenresContainer genres={this.state.genres} />
+      <fieldset>
+        <legend>Genres</legend>
+        <GenresContainer
+          genres={this.state.genres}
+          allGenres={this.props.genresAll}
+          onUpdate={this.handleGenreUpdate}
+          />
+        {editGenre}
+      </fieldset>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
 
-        {addGig}
-
-        <GigsContainer gigs={this.state.gigs}
+        <fieldset>
+          <legend>{this.state.user.first_name}'s Gigs</legend>
+      <GigsContainer gigs={this.state.gigs}
           onUpdate={this.handleGigUpdate}
           handleDelete={this.handleDelete}
           />
-
+          {addGig}
+        </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>{this.state.user.first_name}'s Requests</legend>
+            <h6>Gig Requests</h6>
         <GigRequestsContainer
           gigRequests={this.state.gigRequests}
           />
-
+        <br />
+        <br />
+        <h6>Band Requests</h6>
         <BandRequestsContainer bandRequests={this.state.bandRequests}/>
+        </fieldset>
       </div>
 
     )

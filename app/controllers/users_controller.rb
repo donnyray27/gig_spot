@@ -6,10 +6,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_instruments = @user.instruments
-    @user_genres = @user.genres
+    @user_genres = @user.genres.pluck(:name)
     @user_gigs = @user.gigs
     @user_gig_requests = @user.gig_requests
     @user_band_requests = @user.band_requests
-    @all_genres = Genre.all
+    @all_genres = Genre.all.pluck(:name)
   end
 end

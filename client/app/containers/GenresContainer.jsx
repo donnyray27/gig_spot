@@ -8,17 +8,19 @@ class GenresContainer extends Component {
 
 
   render(){
+
+
       let genres = this.props.genres.map(genre => {
         return(
         <Genre
           key={genre.id}
-          genre={genre.name}
+          genre={genre}
           />
       )
     })
     return(
       <div>
-      {genres}
+        {genres}
     </div>
     )
   }
