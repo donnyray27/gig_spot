@@ -31,6 +31,7 @@ class Api::V1::GigsController < ApplicationController
     render json: user_gigs
   end
 
+  private
   def gig_params
     params.fetch(:gig).permit(
     :venue,

@@ -1,4 +1,7 @@
-class GigsContainer extends React.Component {
+import React, { Component } from 'react'
+import Gig from '../components/Gig'
+
+class GigsContainer extends Component {
   constructor(props){
     super(props)
     this.onUpdate = this.onUpdate.bind(this)
@@ -45,3 +48,5 @@ class GigsContainer extends React.Component {
     )
   }
 }
+
+export default GigsContainer

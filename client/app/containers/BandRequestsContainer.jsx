@@ -1,4 +1,7 @@
-class BandRequestsContainer extends React.Component {
+import React, { Component } from 'react'
+import BandRequest from '../components/BandRequest'
+
+class BandRequestsContainer extends Component {
   constructor(props){
     super(props)
   }
@@ -31,3 +34,5 @@ class BandRequestsContainer extends React.Component {
     )
   }
 }
+
+export default BandRequestsContainer

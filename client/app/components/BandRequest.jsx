@@ -1,4 +1,6 @@
-class BandRequest extends React.Component {
+import React, { Component } from 'react'
+
+class BandRequest extends Component {
 
   render(){
     return(
@@ -10,3 +12,5 @@ class BandRequest extends React.Component {
     )
   }
 }
+
+export default BandRequest

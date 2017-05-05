@@ -1,4 +1,7 @@
-class GigRequestsContainer extends React.Component {
+import React, { Component } from 'react'
+import GigRequest from '../components/GigRequest'
+
+class GigRequestsContainer extends Component {
   constructor(props){
     super(props)
   }
@@ -12,7 +15,7 @@ class GigRequestsContainer extends React.Component {
             title={gigRequest.title}
             updatedAt={gigRequest.updated_at}
             />
-        
+
       )
     })
     return(
@@ -30,3 +33,5 @@ class GigRequestsContainer extends React.Component {
     )
   }
 }
+
+export default GigRequestsContainer

@@ -1,3 +1,6 @@
+import React, { Component } from 'react'
+import Instrument from '../components/Instrument'
+
 class InstrumentsContainer extends React.Component {
   constructor(props){
     super(props)
@@ -20,3 +23,5 @@ class InstrumentsContainer extends React.Component {
     )
   }
 }
+
+export default InstrumentsContainer
