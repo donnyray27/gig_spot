@@ -59,16 +59,18 @@ class GigRequestIndex extends Component{
       )
     })
 
-    let revealForm = this.state.newRequest ? <GigReqForm
+    let revealForm = this.state.newRequest ? <GigReqForm className="small-centered"
                                               allGenres={this.props.allGenres}
                                               allInstruments={this.props.allInstruments}
                                               onSubmit={this.handleNewGigReq}
                                               onCancel={this.handleFormToggle}/> :
-                                              <button onClick={this.handleFormToggle}>Post a Request</button>
+                                              <button className="small-centered" onClick={this.handleFormToggle}>Post a Request</button>
 
     return(
       <div>
+        <div className="request-tile">
         {revealForm}
+      </div>
         <table>
           <thead>
             <tr>

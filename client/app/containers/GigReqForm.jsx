@@ -86,8 +86,8 @@ class GigReqForm extends Component{
       )
     })
     return(
-      <div className="row">
-      <form>
+      <div className="small-centered gig_req_form">
+      <form className="small-12 med-8 lg-6 small-centered">
         <TextField
           label='Heading'
           content={this.state.title}
@@ -127,8 +127,10 @@ class GigReqForm extends Component{
             name='description'
             handlerFunction={this.handleDescription}
             />
+          <br />
           <button onClick={this.handleSubmit}>Submit</button>
-          <button onClick={this.clearForm}>Clear</button>
+          <br />
+          <button onClick={this.clearForm}>Clear</button> |
           <button onClick={this.props.onCancel}>Cancel</button>
         </form>
       </div>
