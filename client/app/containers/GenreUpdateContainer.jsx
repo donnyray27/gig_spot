@@ -1,40 +1,58 @@
 import React, {Component} from 'react'
-import GenreUpdate from '../components/GenreUpdate'
+import Select from 'react-select'
 class GenreUpdateContainer extends Component{
   constructor(props){
     super(props)
-    this.onUpdate = this.onUpdate.bind(this)
+      this.state = {
+        checkedGenres: []
+      }
+    this.parseSelect = this.parseSelect.bind(this)
+    this.handleGenreChange = this.handleGenreChange.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
-onUpdate(genre){
-  this.props.onUpdate(genre)
-}
+  componentWillMount(){
+    let preSelected = this.props.userGenres.map(genre => {
+      return(
+        {value: genre, label: genre}
+      )
+    })
+    this.setState({checkedGenres: preSelected})
+  }
+
+  parseSelect(arr){
+    let returnValue = []
+    arr.forEach((obj) => {
+      returnValue.push(obj.value)
+    })
+    return returnValue
+  }
+
+  handleUpdate(val){
+    this.setState({checkedGenres: val})
+  }
+  handleGenreChange(){
+    let genre = this.parseSelect(this.state.checkedGenres)
+    this.props.onUpdate(genre)
+  }
+
       render(){
 
-        let genreCheckBoxes = this.props.allGenres.map(genreCheckBox => {
-            if(this.props.userGenres.includes(genreCheckBox)){
-              return(
-                <GenreUpdate
-                  key={genreCheckBox.id}
-                  name={genreCheckBox}
-                  updateHander={this.onUpdate.bind(this, genreCheckBox)}
-                  checked={true}
-                  />
-              )
-            }else{
-              return(
-                <GenreUpdate
-                  key={genreCheckBox.id}
-                  name={genreCheckBox}
-                  updateHander={this.onUpdate.bind(this, genreCheckBox)}
-                  checked={false}
-                  />
-              )
-            }
+        let allGenres = this.props.allGenres.map(genre => {
+          return(
+            {value: genre, label: genre}
+          )
         })
+
         return(
-            <form>
-            {genreCheckBoxes}
-          </form>
+          <div>
+            <Select
+              name="Genres"
+              multi={true}
+              value={this.state.checkedGenres}
+              options={allGenres}
+              onChange={this.handleUpdate}/>
+            <button onClick={this.handleGenreChange}>Done</button>
+          </div>
         )
       }
 }

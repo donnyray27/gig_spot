@@ -39,6 +39,7 @@ class GigsContainer extends Component {
           <th>Address</th>
           <th>Date/Time</th>
           <th>Description</th>
+          <th>Genre(s)</th>
         </tr>
       </thead>
       <tbody>

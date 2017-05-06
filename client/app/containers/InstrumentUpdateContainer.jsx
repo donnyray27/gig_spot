@@ -1,40 +1,58 @@
 import React, {Component} from 'react'
-import InstrumentUpdate from '../components/InstrumentUpdate'
+import Select from 'react-select'
 class InstrumentUpdateContainer extends Component{
   constructor(props){
     super(props)
-    this.onUpdate = this.onUpdate.bind(this)
+      this.state = {
+        checkedInstruments: []
+      }
+    this.parseSelect = this.parseSelect.bind(this)
+    this.handleInstrumentChange = this.handleInstrumentChange.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
-onUpdate(instrument){
-  this.props.onUpdate(instrument)
-}
+  componentWillMount(){
+    let preSelected = this.props.userInstruments.map(instrument => {
+      return(
+        {value: instrument, label: instrument}
+      )
+    })
+    this.setState({checkedInstruments: preSelected})
+  }
+
+  parseSelect(arr){
+    let returnValue = []
+    arr.forEach((obj) => {
+      returnValue.push(obj.value)
+    })
+    return returnValue
+  }
+
+  handleUpdate(val){
+    this.setState({checkedInstruments: val})
+  }
+  handleInstrumentChange(){
+    let instrument = this.parseSelect(this.state.checkedInstruments)
+    this.props.onUpdate(instrument)
+  }
+
       render(){
 
-        let instrumentCheckBoxes = this.props.allInstruments.map(instrumentCheckBox => {
-            if(this.props.userInstruments.includes(instrumentCheckBox)){
-              return(
-                <InstrumentUpdate
-                  key={instrumentCheckBox.id}
-                  name={instrumentCheckBox}
-                  updateHander={this.onUpdate.bind(this, instrumentCheckBox)}
-                  checked={true}
-                  />
-              )
-            }else{
-              return(
-                <InstrumentUpdate
-                  key={instrumentCheckBox.id}
-                  name={instrumentCheckBox}
-                  updateHander={this.onUpdate.bind(this, instrumentCheckBox)}
-                  checked={false}
-                  />
-              )
-            }
+        let allInstruments = this.props.allInstruments.map(instrument => {
+          return(
+            {value: instrument, label: instrument}
+          )
         })
+
         return(
-            <form>
-            {instrumentCheckBoxes}
-          </form>
+          <div>
+            <Select
+              name="Instruments"
+              multi={true}
+              value={this.state.checkedInstruments}
+              options={allInstruments}
+              onChange={this.handleUpdate}/>
+            <button onClick={this.handleInstrumentChange}>Done</button>
+          </div>
         )
       }
 }

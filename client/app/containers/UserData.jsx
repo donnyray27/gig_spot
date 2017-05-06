@@ -25,7 +25,7 @@ class UserData extends Component {
     this.handleGigUpdate = this.handleGigUpdate.bind(this)
     this.handleNewGig = this.handleNewGig.bind(this)
     this.handleCreate = this.handleCreate.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
+    this.handleGigDelete = this.handleGigDelete.bind(this)
     this.handleGenreUpdate = this.handleGenreUpdate.bind(this)
     this.handleEditGenre = this.handleEditGenre.bind(this)
     this.handleEditInstrument = this.handleEditInstrument.bind(this)
@@ -45,7 +45,7 @@ class UserData extends Component {
     })
   }
 
-  handleDelete(id) {
+  handleGigDelete(id) {
     let userId = this.props.user.id
    if(confirm("Are you sure you want to delete this?") == true){
     fetch(`/api/v1/users/${userId}/gigs/${id}`, {
@@ -141,7 +141,9 @@ class UserData extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response)
-        this.setState({ genres: response});
+        this.setState({
+          genres: response,
+          editingGenre: !this.state.editingGenre});
       })
     }
 
@@ -168,7 +170,10 @@ class UserData extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response)
-        this.setState({ instruments: response});
+        this.setState({
+          instruments: response,
+          editingInstrument: !this.state.editingInstrument
+        });
       })
     }
 
@@ -180,14 +185,17 @@ class UserData extends Component {
                                         <button onClick={this.handleCreate}>Add a Gig</button>
 
   let editGenre = this.state.editingGenre ?
-                        <div><GenreUpdateContainer
+                        <GenreUpdateContainer
                                 allGenres={this.props.genresAll}
                                 userGenres={this.state.genres}
                                 onUpdate={this.handleGenreUpdate}
-                                />
-                              <button onClick={this.handleEditGenre}>Done</button>
-                        </div> :
-                      <button onClick={this.handleEditGenre}>Edit</button>
+                                /> : <div>
+                                      <GenresContainer
+                                        genres={this.state.genres}/>
+                                      <button onClick={this.handleEditGenre}>Edit</button>
+                                    </div>
+
+
 
   let editInstrument = this.state.editingInstrument ?
                                     <div><InstrumentUpdateContainer
@@ -195,10 +203,10 @@ class UserData extends Component {
                                             userInstruments={this.state.instruments}
                                             onUpdate={this.handleInstrumentUpdate}
                                             />
-                                          <button onClick={this.handleEditInstrument}>Done</button>
-                                    </div> :
-                                  <button onClick={this.handleEditInstrument}>Edit</button>
-
+                                        </div> : <div>
+                                                  <InstrumentsContainer instruments={this.state.instruments}/>
+                                                  <button onClick={this.handleEditInstrument}>Edit</button>
+                                                </div>
     return(
       <div className ="row">
         <h1>{this.state.user.first_name} {this.state.user.last_name}</h1>
@@ -210,15 +218,11 @@ class UserData extends Component {
 
     <fieldset>
         <legend>Instruments</legend>
-        <InstrumentsContainer instruments={this.state.instruments}/>
         {editInstrument}
       </fieldset>
 
       <fieldset>
-        <legend>Genres</legend>
-        <GenresContainer
-          genres={this.state.genres}
-          />
+        <legend>Genre(s)</legend>
         {editGenre}
       </fieldset>
                         <br />
@@ -230,7 +234,7 @@ class UserData extends Component {
           <legend>{this.state.user.first_name}'s Gigs</legend>
       <GigsContainer gigs={this.state.gigs}
           onUpdate={this.handleGigUpdate}
-          handleDelete={this.handleDelete}
+          handleGigDelete={this.handleGigDelete}
           />
           {addGig}
         </fieldset>
