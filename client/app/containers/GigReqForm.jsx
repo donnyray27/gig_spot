@@ -59,7 +59,6 @@ class GigReqForm extends Component{
       instruments: instruments,
       description: this.state.description
     }
-    debugger;
     this.props.onSubmit(gigReq)
   }
   render(){

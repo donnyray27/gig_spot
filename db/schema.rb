@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505201150) do
+ActiveRecord::Schema.define(version: 20170506142513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.integer  "genre_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["band_request_id", "genre_id"], name: "unique_band_req_genre", unique: true, using: :btree
     t.index ["band_request_id"], name: "index_band_request_genres_on_band_request_id", using: :btree
     t.index ["genre_id"], name: "index_band_request_genres_on_genre_id", using: :btree
   end
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.integer  "instrument_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["band_request_id", "instrument_id"], name: "unique_band_req_inst", unique: true, using: :btree
     t.index ["band_request_id"], name: "index_band_request_instruments_on_band_request_id", using: :btree
     t.index ["instrument_id"], name: "index_band_request_instruments_on_instrument_id", using: :btree
   end
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["genre_id"], name: "index_gig_genres_on_genre_id", using: :btree
+    t.index ["gig_id", "genre_id"], name: "unique_gig_genre", unique: true, using: :btree
     t.index ["gig_id"], name: "index_gig_genres_on_gig_id", using: :btree
   end
 
@@ -64,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["genre_id"], name: "index_gig_request_genres_on_genre_id", using: :btree
+    t.index ["gig_request_id", "genre_id"], name: "index_gig_request_genres_on_gig_request_id_and_genre_id", unique: true, using: :btree
     t.index ["gig_request_id"], name: "index_gig_request_genres_on_gig_request_id", using: :btree
   end
 
@@ -72,6 +76,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.integer  "instrument_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["gig_request_id", "instrument_id"], name: "unique_gig_req_inst", unique: true, using: :btree
     t.index ["gig_request_id"], name: "index_gig_request_instruments_on_gig_request_id", using: :btree
     t.index ["instrument_id"], name: "index_gig_request_instruments_on_instrument_id", using: :btree
   end
@@ -107,6 +112,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.integer "user_id"
     t.integer "genre_id"
     t.index ["genre_id"], name: "index_user_genres_on_genre_id", using: :btree
+    t.index ["user_id", "genre_id"], name: "unique_user_genres", unique: true, using: :btree
     t.index ["user_id"], name: "index_user_genres_on_user_id", using: :btree
   end
 
@@ -114,6 +120,7 @@ ActiveRecord::Schema.define(version: 20170505201150) do
     t.integer "user_id"
     t.integer "instrument_id"
     t.index ["instrument_id"], name: "index_user_instruments_on_instrument_id", using: :btree
+    t.index ["user_id", "instrument_id"], name: "unique_user_instruments", unique: true, using: :btree
     t.index ["user_id"], name: "index_user_instruments_on_user_id", using: :btree
   end
 
