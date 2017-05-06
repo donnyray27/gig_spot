@@ -19,6 +19,7 @@ class GigReqForm extends Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.parseSelect = this.parseSelect.bind(this)
+    this.clearForm = this.clearForm.bind(this)
   }
 
   handleTitle(event){
@@ -38,6 +39,17 @@ class GigReqForm extends Component{
 
   handleInstChange(val){
     this.setState({instrumentTags: val})
+  }
+
+  clearForm(event){
+    event.preventDefault()
+    this.setState({
+      title: '',
+      date: '',
+      genreTags: [],
+      instrumentTags: [],
+      description: ''
+    })
   }
 
   parseSelect(arr){
@@ -116,6 +128,8 @@ class GigReqForm extends Component{
             handlerFunction={this.handleDescription}
             />
           <button onClick={this.handleSubmit}>Submit</button>
+          <button onClick={this.clearForm}>Clear</button>
+          <button onClick={this.props.onCancel}>Cancel</button>
         </form>
       </div>
     )

@@ -6,13 +6,19 @@ class GigRequestIndex extends Component{
   constructor(props){
     super(props)
     this.state = {
-      gigReqs: []
+      gigReqs: [],
+      newRequest: false
     }
     this.handleNewGigReq = this.handleNewGigReq.bind(this)
+    this.handleFormToggle = this.handleFormToggle.bind(this)
   }
 
   componentWillMount(){
     this.setState({gigReqs: this.props.gigRequests})
+  }
+
+  handleFormToggle(){
+    this.setState({newRequest: !this.state.newRequest})
   }
   handleNewGigReq(gigReq) {
         let newGigReq = gigReq
@@ -36,6 +42,7 @@ class GigRequestIndex extends Component{
           console.log(response)
           this.setState({ gigReqs: response});
         })
+        this.setState({newRequest: !this.state.newRequest})
     }
 
   render(){
@@ -51,12 +58,17 @@ class GigRequestIndex extends Component{
           />
       )
     })
+
+    let revealForm = this.state.newRequest ? <GigReqForm
+                                              allGenres={this.props.allGenres}
+                                              allInstruments={this.props.allInstruments}
+                                              onSubmit={this.handleNewGigReq}
+                                              onCancel={this.handleFormToggle}/> :
+                                              <button onClick={this.handleFormToggle}>Post a Request</button>
+
     return(
       <div>
-      <GigReqForm
-        allGenres={this.props.allGenres}
-        allInstruments={this.props.allInstruments}
-        onSubmit={this.handleNewGigReq}/>
+        {revealForm}
         <table>
           <thead>
             <tr>
