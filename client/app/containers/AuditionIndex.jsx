@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Audition from '../components/Audition'
-const AuditionIndex = (props) => {
+class AuditionIndex extends Component{
+  constructor(props){
+    super(props)
+    this.onDelete = this.onDelete.bind(this)
+  }
+  onDelete(id){
+    this.props.handleDeleteAudition(id)
+  }
 
-
-
-    let videos = props.auditions.map(audition => {
+  render(){
+    let videos = this.props.auditions.map(audition => {
       return(
-        <Audition title={audition}/>
+        <Audition data={audition}
+          handleDelete={this.onDelete.bind(this, audition[0])}/>
       )
     })
     return(
@@ -14,7 +21,7 @@ const AuditionIndex = (props) => {
         {videos}
       </div>
     )
-
+  }
 }
 
 export default AuditionIndex

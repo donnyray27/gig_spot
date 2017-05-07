@@ -31,6 +31,7 @@ class GigRequestShow extends Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleDeleteAudition = this.handleDeleteAudition.bind(this)
   }
   componentWillMount(){
 
@@ -148,6 +149,16 @@ class GigRequestShow extends Component{
 
       }
 
+    handleDeleteAudition(id){
+      let gigId = this.state.gigRequest.details.id
+    if(confirm("Are you sure you want to delete this?") == true){
+      fetch(`/api/v1/gig_requests/${gigId}/auditions/${id}`, {
+      credentials: 'same-origin',
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+      })
+    }
+  }
 
   render(){
     let genreTags = this.state.gigRequest.genres.map(genre => {
@@ -204,7 +215,8 @@ let description = this.state.editable ? <h3><input type='text' defaultValue={thi
            </TabPanel>
            <TabPanel>
               <AuditionIndex
-                auditions={this.state.auditions}/>
+                auditions={this.state.auditions}
+                handleDeleteAudition ={this.handleDeleteAudition}/>
            </TabPanel>
          </Tabs>
       </div>

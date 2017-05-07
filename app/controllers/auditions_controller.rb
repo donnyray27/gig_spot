@@ -4,12 +4,10 @@ class AuditionsController < ApplicationController
     gig_request = GigRequest.find(params[:gig_request_id])
     gig_genres = gig_request.genres.pluck(:name)
     gig_instruments = gig_request.instruments.pluck(:name)
-    gig_auditions = gig_request.auditions.pluck(:name)
     @gig_request = {
       details: gig_request,
       genres: gig_genres,
-      instruments: gig_instruments,
-      auditions: gig_auditions
+      instruments: gig_instruments
     }
   end
 end

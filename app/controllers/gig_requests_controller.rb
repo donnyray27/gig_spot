@@ -23,7 +23,7 @@ class GigRequestsController < ApplicationController
     gig_requested = GigRequest.find(params[:id])
     gig_genres = gig_requested.genres.pluck(:name)
     gig_instruments = gig_requested.instruments.pluck(:name)
-    gig_auditions = gig_requested.auditions.pluck(:name)
+    gig_auditions = gig_requested.auditions.pluck(:id, :name)
     @gig_request = {
       details: gig_requested,
       genres: gig_genres,

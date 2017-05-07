@@ -14,9 +14,11 @@ function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recor
   console.log(idString)
   var streamName = args[0]
   console.log(streamName);
+  var videoId = args[9]
   let newAudtion = {
           gig_request_id: idString,
-          name: streamName
+          name: streamName,
+          video_id: videoId
         }
   console.log(newAudtion);
         fetch(`/api/v1/gig_requests/${idString}/auditions`, {
