@@ -27,7 +27,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :gig_requests
+      resources :gig_requests do
+        resources :gig_request_auditions
+      end
     end
   end
 

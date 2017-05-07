@@ -21,4 +21,6 @@ class User < ApplicationRecord
   has_many :gig_requests
   has_many :band_requests
 
+  has_many :gig_request_auditions
+
 end

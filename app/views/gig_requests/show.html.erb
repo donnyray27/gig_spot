@@ -1,3 +1,53 @@
 <%= react_component("GigRequestShow", props: {gigRequest: @gig_request,
                                               allInstruments: @all_instruments,
                                               allGenres: @all_genres}) %>
+
+<%= react_component("Pipe") %>
+
+
+
+<script>
+function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recorderId, audioCodec, videoCodec, fileType, videoId){
+	var args = Array.prototype.slice.call(arguments);
+  console.log(args);
+	alert("onSaveOk("+args.join(', ')+")");
+  var theUrl = window.location.href
+  console.log(theUrl);
+  var urlSplit = theUrl.split('/')
+  console.log(urlSplit)
+  var idString = urlSplit.pop()
+  console.log(idString)
+  var streamName = args[0]
+  console.log(streamName);
+  let newAudtion = {
+          gig_request_id: idString,
+          name: streamName
+        }
+  console.log(newAudtion);
+        fetch(`/api/v1/gig_requests/${idString}/gig_request_auditions`, {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newAudtion)
+      })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+
+}
+</script>
+
+<!-- begin video recorder code -->
+<script type="text/javascript">
+var size = {width:400,height:330};
+var flashvars = {qualityurl: "avq/300p.xml",accountHash:"34bed03404a85b8d3f54f52f089e963e", eid:1, showMenu:"true", mrt:120,sis:0,asv:1,mv:0};
+(function() {var pipe = document.createElement('script'); pipe.type = 'text/javascript'; pipe.async = true;pipe.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 's1.addpipe.com/1.3/pipe.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pipe, s);})();
+</script>
+<div id="hdfvr-content" ></div>
+<!-- end video recorder code -->
