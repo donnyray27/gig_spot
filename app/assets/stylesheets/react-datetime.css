@@ -4,6 +4,10 @@
 
 .rdt {
   position: relative;
+
+}
+.rdt input {
+  width: 250px;
 }
 .rdtPicker {
   display: none;

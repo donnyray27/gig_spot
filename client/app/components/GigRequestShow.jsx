@@ -3,6 +3,8 @@ import Instrument from './Instrument'
 import Genre from './Genre'
 import Datetime from 'react-datetime'
 import Select from 'react-select'
+import moment from 'moment'
+import { browserHistory } from 'react-router'
 class GigRequestShow extends Component{
   constructor(props){
     super(props)
@@ -13,8 +15,7 @@ class GigRequestShow extends Component{
       date: '',
       genreTags: [],
       instrumentTags: [],
-      description: '',
-      testarray: [{label: "hello", value: "hello"}]
+      description: ''
     }
     this.handleDate = this.handleDate.bind(this)
     this.handlelogChange = this.handlelogChange.bind(this)
@@ -24,6 +25,7 @@ class GigRequestShow extends Component{
     this.parseSelect = this.parseSelect.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
   componentWillMount(){
 
@@ -39,9 +41,12 @@ class GigRequestShow extends Component{
       )
     })
 
+    let date = new Date(this.props.gigRequest.details.event_date)
+    let goodDate = moment(date).add(4, 'hours').format('ll');
+
     this.setState({
       gigRequest: this.props.gigRequest,
-      date: this.props.gigRequest.details.event_date,
+      date: goodDate,
       title: this.props.gigRequest.details.title,
       genreTags: genreDefaults,
       instrumentTags: instrumentDefaults,
@@ -52,7 +57,9 @@ class GigRequestShow extends Component{
 
 
   handleDate(event){
-    this.setState({date: event._d})
+    let date = new Date(event._d)
+    let goodDate = moment(date).format('ll');
+    this.setState({date: goodDate})
   }
 
   handlelogChange(val){
@@ -120,6 +127,19 @@ class GigRequestShow extends Component{
         })
     }
 
+    handleDelete() {
+          let id = this.state.gigRequest.details.id
+        if(confirm("Are you sure you want to delete this?") == true){
+          fetch(`/gig_requests/${id}`, {
+          credentials: 'same-origin',
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        const path = `/gig_requests`
+        browserHistory.push(path)
+        }
+
+      }
 
 
   render(){
@@ -153,7 +173,7 @@ class GigRequestShow extends Component{
     })
 
     let title = this.state.editable ? <h1><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h1> : <h1>{this.state.gigRequest.details.title}</h1>
-  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date}/></h6> : <h6>{this.state.gigRequest.details.event_date}</h6>
+  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date}/></h6> : <h6>{this.state.date}</h6>
   let genres = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.genreTags} options={genreOptions} onChange={this.handlelogChange}/> : <div>{genreTags}</div>
 let instruments = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.instrumentTags} options={instrumentOptions} onChange={this.handleInstChange}/> : <div>{instrumentTags}</div>
 let description = this.state.editable ? <h3><input type='text' defaultValue={this.state.description} onChange={this.handleDescription}/></h3> : <h3>{this.state.gigRequest.details.description}</h3>
@@ -165,6 +185,7 @@ let description = this.state.editable ? <h3><input type='text' defaultValue={thi
         {instruments}
         {description}
         <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>
+        <button onClick={this.handleDelete}>Delete</button>
       </div>
     )
   }

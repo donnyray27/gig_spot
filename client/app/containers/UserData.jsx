@@ -114,7 +114,10 @@ class UserData extends Component {
         .then(response => response.json())
         .then(response => {
           console.log(response)
-          this.setState({ gigs: response});
+          this.setState({
+            gigs: response,
+            addingAGig: !this.state.addingAGig
+          });
         })
     }
 
@@ -180,7 +183,7 @@ class UserData extends Component {
 
   render() {
 
-    let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig}/>
+  let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig} allGenres={this.props.genresAll}/>
                                         <button onClick={this.handleCreate}>Cancel</button></div> :
                                         <button onClick={this.handleCreate}>Add a Gig</button>
 
@@ -235,6 +238,7 @@ class UserData extends Component {
       <GigsContainer gigs={this.state.gigs}
           onUpdate={this.handleGigUpdate}
           handleGigDelete={this.handleGigDelete}
+          genres={this.props.genresAll}
           />
           {addGig}
         </fieldset>

@@ -41,7 +41,7 @@
   outline: none;
   overflow: hidden;
   position: relative;
-  width: 50%;/*Right here*/
+  width: 100%;/*Right here*/
 }
 .Select-control:hover {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
@@ -242,7 +242,7 @@
   max-height: 200px;
   position: absolute;
   top: 100%;
-  width: 50%;/*Right here*/
+  width: 100%;/*Right here*/
   z-index: 1;
   -webkit-overflow-scrolling: touch;
 }

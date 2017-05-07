@@ -16,6 +16,7 @@
 
 
  */
- select {
-   width: 5%;
+ .genre-column {
+   width: 20%;
+   height: 5%;
  }

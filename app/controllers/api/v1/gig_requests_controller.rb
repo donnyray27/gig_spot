@@ -98,8 +98,8 @@ class Api::V1::GigRequestsController < ApplicationController
       instruments: gig_instruments
     }
     render json: @gig_request
-
   end
+
 
   private
   def gig_req_params

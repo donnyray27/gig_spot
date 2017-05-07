@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import Genre from './Genre'
 import Instrument from './Instrument'
+import moment from 'moment'
 class GigRequestTile extends Component{
   render(){
+    let date = new Date(this.props.postDate)
+    let formatDate = moment(date).format('ll')
       let genreTags = this.props.genres.map(genre => {
         return(
           <Genre
@@ -22,10 +25,10 @@ class GigRequestTile extends Component{
       })
     return(
       <tr>
-        <td>{this.props.title}</td>
+        <td><a href={'/gig_requests/' + this.props.id}>{this.props.title}</a></td>
         <td>{genreTags}</td>
         <td>{instrumentTags}</td>
-        <td>{this.props.postDate}</td>
+        <td>{formatDate}</td>
       </tr>
 
     )
