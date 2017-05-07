@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507173955) do
+ActiveRecord::Schema.define(version: 20170507204403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "auditions", force: :cascade do |t|
+    t.integer  "gig_request_id"
+    t.integer  "user_id"
+    t.string   "name",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["gig_request_id"], name: "index_auditions_on_gig_request_id", using: :btree
+    t.index ["user_id"], name: "index_auditions_on_user_id", using: :btree
+  end
 
   create_table "band_request_genres", force: :cascade do |t|
     t.integer  "band_request_id"
@@ -59,16 +69,6 @@ ActiveRecord::Schema.define(version: 20170507173955) do
     t.index ["genre_id"], name: "index_gig_genres_on_genre_id", using: :btree
     t.index ["gig_id", "genre_id"], name: "unique_gig_genre", unique: true, using: :btree
     t.index ["gig_id"], name: "index_gig_genres_on_gig_id", using: :btree
-  end
-
-  create_table "gig_request_auditions", force: :cascade do |t|
-    t.integer  "gig_request_id"
-    t.integer  "user_id"
-    t.string   "name",           null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["gig_request_id"], name: "index_gig_request_auditions_on_gig_request_id", using: :btree
-    t.index ["user_id"], name: "index_gig_request_auditions_on_user_id", using: :btree
   end
 
   create_table "gig_request_genres", force: :cascade do |t|

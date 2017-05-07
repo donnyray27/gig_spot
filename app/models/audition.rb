@@ -1,4 +1,4 @@
-class GigRequestAudition < ApplicationRecord
+class Audition < ApplicationRecord
   validates :name, presence: true
 
   belongs_to :gig_request
