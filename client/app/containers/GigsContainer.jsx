@@ -13,21 +13,23 @@ class GigsContainer extends Component {
   }
 
   onDelete(id) {
-       this.props.handleDelete(id)
+       this.props.handleGigDelete(id)
    }
 
   render(){
       let gigs = this.props.gigs.map(gig => {
         return(
         <Gig
-          key={gig.id}
-          id={gig.id}
-          venue={gig.venue}
-          address={gig.address}
-          dateTime={gig.event_date}
-          description={gig.description}
+          key={gig.data.id}
+          id={gig.data.id}
+          venue={gig.data.venue}
+          address={gig.data.address}
+          dateTime={gig.data.event_date}
+          description={gig.data.description}
+          genres={gig.genres}
+          allGenres = {this.props.genres}
           handleUpdate={this.onUpdate}
-          handleDelete={this.onDelete.bind(this, gig.id)}
+          handleDelete={this.onDelete.bind(this, gig.data.id)}
           />
       )
     })
@@ -37,8 +39,9 @@ class GigsContainer extends Component {
         <tr>
           <th>Venue</th>
           <th>Address</th>
-          <th>Date/Time</th>
+          <th>Date & Time</th>
           <th>Description</th>
+          <th>Genre(s)</th>
         </tr>
       </thead>
       <tbody>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GigRequestTile from '../components/GigRequestTile'
 import GigReqForm from './GigReqForm'
-
 class GigRequestIndex extends Component{
   constructor(props){
     super(props)

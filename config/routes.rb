@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root 'application#home'
 
   resources :users, only: [:show]
-  resources :gig_requests, only: [:index, :show]
+  resources :gig_requests, only: [:index, :show, :destroy]
   resources :band_requests, only: [:index, :show]
 
   namespace :api do

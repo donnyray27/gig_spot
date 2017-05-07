@@ -105,7 +105,7 @@ class GigReqForm extends Component{
       <label>
         Genre(s):
       <Select
-        name="form-field-name"
+        name="Genres"
         multi={true}
         value={this.state.genreTags}
         options={genres}
@@ -114,7 +114,7 @@ class GigReqForm extends Component{
     </label>
       <label>Instrument(s):
         <Select
-          name="form-field-name"
+          name="Instruments"
           multi={true}
           value={this.state.instrumentTags}
           options={instruments}

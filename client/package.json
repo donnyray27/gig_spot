@@ -28,11 +28,13 @@
     "expose-loader": "^0.7.3",
     "imports-loader": "^0.7.1",
     "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "react": "^15.5.4",
     "react-datepicker": "^0.46.0",
     "react-datetime": "^2.8.10",
     "react-dom": "^15.5.4",
     "react-on-rails": "7.0.4",
+    "react-router": "^4.1.1",
     "react-select": "^1.0.0-rc.3",
     "webpack": "^2.3.3"
   },
