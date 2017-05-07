@@ -6,7 +6,7 @@ import UserData from '../containers/UserData';
 import GigRequestIndex from '../containers/GigRequestIndex'
 import BandRequestIndex from '../containers/BandRequestIndex'
 import GigRequestShow from '../components/GigRequestShow'
-import Pipe from '../components/Pipe'
+import AuditionShow from '../components/AuditionShow'
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
   HelloWorld,
@@ -15,5 +15,5 @@ ReactOnRails.register({
   GigRequestIndex,
   BandRequestIndex,
   GigRequestShow,
-  Pipe
+  AuditionShow
 });

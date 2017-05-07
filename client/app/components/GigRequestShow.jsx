@@ -6,18 +6,21 @@ import Select from 'react-select'
 import moment from 'moment'
 import { browserHistory } from 'react-router'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import AuditionIndex from '../containers/AuditionIndex'
 
 class GigRequestShow extends Component{
   constructor(props){
     super(props)
     this.state = {
+      id: '',
       gigRequest: {},
       editable: false,
       title: '',
       date: '',
       genreTags: [],
       instrumentTags: [],
-      description: ''
+      description: '',
+      auditions: []
     }
     this.handleDate = this.handleDate.bind(this)
     this.handlelogChange = this.handlelogChange.bind(this)
@@ -47,12 +50,14 @@ class GigRequestShow extends Component{
     let goodDate = moment(date).add(4, 'hours').format('ll');
 
     this.setState({
+      id: this.props.gigRequest.details.id,
       gigRequest: this.props.gigRequest,
       date: goodDate,
       title: this.props.gigRequest.details.title,
       genreTags: genreDefaults,
       instrumentTags: instrumentDefaults,
-      description: this.props.gigRequest.details.description
+      description: this.props.gigRequest.details.description,
+      auditions: this.props.gigRequest.auditions
     })
 
   }
@@ -193,11 +198,13 @@ let description = this.state.editable ? <h3><input type='text' defaultValue={thi
              {genres}
              {instruments}
              {description}
+             <a href={'/gig_requests/' + this.state.id + '/auditions/new'}>Submit an Audition for this Gig</a>
              <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>
              <button onClick={this.handleDelete}>Delete</button>
            </TabPanel>
            <TabPanel>
-
+              <AuditionIndex
+                auditions={this.state.auditions}/>
            </TabPanel>
          </Tabs>
       </div>

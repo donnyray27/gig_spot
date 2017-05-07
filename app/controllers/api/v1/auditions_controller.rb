@@ -11,10 +11,7 @@ class Api::V1::AuditionsController < ApplicationController
     gig_req_audition.user = user
     gig_req_audition.name = params[:name]
     if gig_req_audition.save
-      flash[:notice] = "Your audition was successfully uploaded. Good luck!"
       render json: gig_req_audition
-    else
-      flash[:notice] = "There was an error with your request. Please try again"
     end
 
   end

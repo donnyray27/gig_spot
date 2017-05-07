@@ -1,5 +1,7 @@
-<div id="hdfvr-content" ></div>
+<%= react_component("AuditionShow", props: {gigRequest: @gig_request}) %>
 
+<div id="hdfvr-content" ></div>
+<button><%= link_to "All Set", gig_requests_path %></button>
 <script>
 function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recorderId, audioCodec, videoCodec, fileType, videoId){
 	var args = Array.prototype.slice.call(arguments);
