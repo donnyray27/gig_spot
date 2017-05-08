@@ -88,6 +88,7 @@ class Gig extends Component {
     let genres = this.props.genres.map(genre => {
       return(
         <Genre
+          key={genre.id}
         genreName={genre}
         />
       )
