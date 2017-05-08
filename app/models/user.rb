@@ -22,5 +22,6 @@ class User < ApplicationRecord
   has_many :band_requests
 
   has_many :auditions
+  has_many :user_tracks
 
 end

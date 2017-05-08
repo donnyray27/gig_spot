@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users do
         resources :gigs
+        resources :user_tracks, only: [:create, :destroy]
       end
     end
   end

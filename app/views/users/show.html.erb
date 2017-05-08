@@ -7,3 +7,6 @@
                                   bandRequests: @user_band_requests,
                                   genresAll: @all_genres,
                                   instrumentsAll: @all_instruments}) %>
+
+<%= react_component("SpotifyContainer", props: {user: @user,
+                                                tracks: @user_tracks}) %>

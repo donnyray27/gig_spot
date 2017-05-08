@@ -7,10 +7,11 @@ class SpotifyObject extends Component{
   render(){
     return(
     <div>
-      <img src={this.props.album.images[2]} />
-      <p>{this.props.name}</p>
-      <p>{this.props.artists[0].name}</p>
-      <p>{this.props.album.name}</p>
+      <a href={this.props.preview}><img src={this.props.img} /></a>
+      <p>Title: {this.props.name}</p>
+      <p>Artist: {this.props.artist}</p>
+      <p>Album: {this.props.album}</p>
+      <button onClick={this.props.onSubmit}>Add to my Profile</button>
     </div>
     )
   }
