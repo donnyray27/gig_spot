@@ -54,6 +54,7 @@ class GigRequestIndex extends Component{
           postDate={gigRequest.details.created_at}
           genres={gigRequest.genres}
           instruments={gigRequest.instruments}
+          user={gigRequest.user}
           />
       )
     })
@@ -76,6 +77,7 @@ class GigRequestIndex extends Component{
               <th>Title</th>
               <th>Genre(s)</th>
               <th>Instrument(s)</th>
+              <th>Posted By</th>
               <th>Post Date</th>
             </tr>
           </thead>

@@ -1,0 +1,7 @@
+Hey <%= @gig_request.user.first_name %>,
+
+    <%= @audition.user.first_name %>(<%= @audition.user.email %>) just auditioned for your gig.
+    Check it out <%= link_to "here", gig_request_path(@gig_request) %> and shoot them an email with your answer!
+
+Sincerely,
+    The GigSpot Team

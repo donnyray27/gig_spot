@@ -8,10 +8,12 @@ class GigRequestsController < ApplicationController
     all_gig_requests.each do |gig_request|
       gig_genres = gig_request.genres.pluck(:name)
       gig_instruments = gig_request.instruments.pluck(:name)
+      gig_poster = gig_request.user
       @gig_requests << {
                           details: gig_request,
                           genres: gig_genres,
-                          instruments: gig_instruments
+                          instruments: gig_instruments,
+                          user: gig_poster
                         }
     end
     @all_genres = Genre.all.order(name: :asc).pluck(:name)
@@ -24,11 +26,13 @@ class GigRequestsController < ApplicationController
     gig_genres = gig_requested.genres.pluck(:name)
     gig_instruments = gig_requested.instruments.pluck(:name)
     gig_auditions = gig_requested.auditions.pluck(:id, :name)
+    gig_poster = gig_requested.user
     @gig_request = {
       details: gig_requested,
       genres: gig_genres,
       instruments: gig_instruments,
-      auditions: gig_auditions
+      auditions: gig_auditions,
+      user: gig_poster
     }
     @all_genres = Genre.all.pluck(:name)
     @all_instruments = Instrument.all.pluck(:name)
@@ -38,6 +42,7 @@ class GigRequestsController < ApplicationController
     gig_request = GigRequest.find(params[:id])
     gig_request_instruments = GigRequestInstrument.where(gig_request_id: gig_request.id)
     gig_request_genres = GigRequestGenre.where(gig_request_id: gig_request.id)
+
     unless gig_request_instruments.empty?
       gig_request_instruments.each do |instrument|
         instrument.destroy
@@ -58,11 +63,13 @@ class GigRequestsController < ApplicationController
       gig_genres = gig_request.genres.pluck(:name)
       gig_instruments = gig_request.instruments.pluck(:name)
       gig_auditions = gig_requested.auditions.pluck(:name)
+      gig_poster = gig_request.user
       @gig_requests << {
                           details: gig_request,
                           genres: gig_genres,
                           instruments: gig_instruments,
-                          auditions: gig_auditions
+                          auditions: gig_auditions,
+                          user: gig_poster
                         }
     end
   end

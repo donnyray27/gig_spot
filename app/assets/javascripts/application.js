@@ -18,6 +18,8 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require underscore
+//= require gmaps/google
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

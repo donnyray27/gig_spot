@@ -12,6 +12,7 @@ class Api::V1::AuditionsController < ApplicationController
     gig_req_audition.name = params[:name]
     gig_req_audition.video_id = params[:video_id]
     if gig_req_audition.save
+      AuditionMailer.new_audition(gig_req_audition).deliver_later
       render json: gig_req_audition
     end
 

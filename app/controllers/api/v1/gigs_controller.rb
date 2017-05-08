@@ -2,6 +2,15 @@ class Api::V1::GigsController < ApplicationController
 
   skip_before_action  :verify_authenticity_token
 
+  def index
+    @gigs = Gig.all
+    @hash = Gmaps4rails.build_markers(@gigs) do |gig, marker|
+      marker.lat gig.latitude
+      marker.lng gig.longitude
+      marker.title generate_title(gig)
+    end
+    render json: @hash
+  end
 
   def create
     gig = Gig.new(gig_params)
@@ -96,5 +105,12 @@ class Api::V1::GigsController < ApplicationController
     :dateTime,
     :description,
     :genres)
+  end
+
+  def generate_title(gig)
+    return "#{gig.user.first_name} #{gig.user.last_name}:\n
+            #{gig.venue}\n
+            #{gig.address} | #{gig.event_date.strftime("%D at %I:%M%p")}\n
+            #{gig.description}"
   end
 end
