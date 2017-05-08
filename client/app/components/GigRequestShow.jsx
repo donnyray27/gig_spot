@@ -205,6 +205,7 @@ let description = this.state.editable ? <h3><input type='text' defaultValue={thi
 
            <TabPanel>
              {title}
+             <a href={'/users/' + this.state.gigRequest.user.id}><p>Posted by {this.state.gigRequest.user.first_name} {this.state.gigRequest.user.last_name}</p></a>
              {date}
              {genres}
              {instruments}

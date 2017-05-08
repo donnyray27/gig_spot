@@ -18,6 +18,9 @@ gem 'react-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem "react_on_rails", "~> 7"
+gem 'geocoder'
+gem 'gmaps4rails'
+gem 'coffee-rails', '~> 4.1.0'
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'

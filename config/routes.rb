@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :auditions
   end
   resources :band_requests, only: [:index, :show]
+  resources :gigs, only: [:index]
 
 
   namespace :api do
@@ -36,5 +37,13 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :gigs
+        resources :gigs, only: [:index]
+      end
+    end
+
 
 end
