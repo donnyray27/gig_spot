@@ -16,9 +16,9 @@ class Api::V1::AuditionsController < ApplicationController
     end
 
   end
-#DELETE https://api.addpipe.com/video/167841
+
   def destroy
-    binding.pry
+
     require 'uri'
     require 'net/http'
 
@@ -29,15 +29,20 @@ class Api::V1::AuditionsController < ApplicationController
     url = URI("https://api.addpipe.com/video/#{video_id}")
 
     http = Net::HTTP.new(url.host, url.port)
-
+    http.use_ssl = true
     request = Net::HTTP::Delete.new(url)
-    request["x-pipe-auth"] = 'Your-Pipe-Api-Key'
+    request["x-pipe-auth"] = ENV["PIPE_API_KEY"]
+    binding.pry
     request["content-type"] = 'application/json'
     request["cache-control"] = 'no-cache'
 
 
     response = http.request(request)
     puts response.read_body
+
+    # audition.destroy
+    binding.pry
+    render json: gig_request
   end
 
   private

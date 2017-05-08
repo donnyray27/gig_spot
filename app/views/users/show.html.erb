@@ -1,4 +1,4 @@
-
+<%= image_tag(@user.avatar_url) if @user.avatar? %>
 <%= react_component("UserData", props: { user: @user,
                                   instruments: @user_instruments,
                                   genres: @user_genres,
