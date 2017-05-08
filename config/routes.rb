@@ -6,8 +6,11 @@ Rails.application.routes.draw do
   root 'application#home'
 
   resources :users, only: [:show]
-  resources :gig_requests, only: [:index, :show, :destroy]
+  resources :gig_requests, only: [:index, :show, :destroy] do
+    resources :auditions
+  end
   resources :band_requests, only: [:index, :show]
+
 
   namespace :api do
     namespace :v1 do
@@ -27,7 +30,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :gig_requests
+      resources :gig_requests do
+        resources :auditions
+      end
     end
   end
 

@@ -5,17 +5,22 @@ import Datetime from 'react-datetime'
 import Select from 'react-select'
 import moment from 'moment'
 import { browserHistory } from 'react-router'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import AuditionIndex from '../containers/AuditionIndex'
+
 class GigRequestShow extends Component{
   constructor(props){
     super(props)
     this.state = {
+      id: '',
       gigRequest: {},
       editable: false,
       title: '',
       date: '',
       genreTags: [],
       instrumentTags: [],
-      description: ''
+      description: '',
+      auditions: []
     }
     this.handleDate = this.handleDate.bind(this)
     this.handlelogChange = this.handlelogChange.bind(this)
@@ -26,6 +31,7 @@ class GigRequestShow extends Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleDeleteAudition = this.handleDeleteAudition.bind(this)
   }
   componentWillMount(){
 
@@ -45,12 +51,14 @@ class GigRequestShow extends Component{
     let goodDate = moment(date).add(4, 'hours').format('ll');
 
     this.setState({
+      id: this.props.gigRequest.details.id,
       gigRequest: this.props.gigRequest,
       date: goodDate,
       title: this.props.gigRequest.details.title,
       genreTags: genreDefaults,
       instrumentTags: instrumentDefaults,
-      description: this.props.gigRequest.details.description
+      description: this.props.gigRequest.details.description,
+      auditions: this.props.gigRequest.auditions
     })
 
   }
@@ -141,6 +149,16 @@ class GigRequestShow extends Component{
 
       }
 
+    handleDeleteAudition(id){
+      let gigId = this.state.gigRequest.details.id
+    if(confirm("Are you sure you want to delete this?") == true){
+      fetch(`/api/v1/gig_requests/${gigId}/auditions/${id}`, {
+      credentials: 'same-origin',
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+      })
+    }
+  }
 
   render(){
     let genreTags = this.state.gigRequest.genres.map(genre => {
@@ -179,13 +197,28 @@ let instruments = this.state.editable ? <Select name="form-field-name" multi={tr
 let description = this.state.editable ? <h3><input type='text' defaultValue={this.state.description} onChange={this.handleDescription}/></h3> : <h3>{this.state.gigRequest.details.description}</h3>
     return(
       <div>
-        {title}
-        {date}
-        {genres}
-        {instruments}
-        {description}
-        <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>
-        <button onClick={this.handleDelete}>Delete</button>
+        <Tabs>
+           <TabList>
+             <Tab>Info</Tab>
+             <Tab>Auditions</Tab>
+           </TabList>
+
+           <TabPanel>
+             {title}
+             {date}
+             {genres}
+             {instruments}
+             {description}
+             <a href={'/gig_requests/' + this.state.id + '/auditions/new'}>Submit an Audition for this Gig</a>
+             <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>
+             <button onClick={this.handleDelete}>Delete</button>
+           </TabPanel>
+           <TabPanel>
+              <AuditionIndex
+                auditions={this.state.auditions}
+                handleDeleteAudition ={this.handleDeleteAudition}/>
+           </TabPanel>
+         </Tabs>
       </div>
     )
   }
