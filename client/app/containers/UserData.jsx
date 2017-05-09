@@ -4,7 +4,6 @@ import InstrumentsContainer from './InstrumentsContainer'
 import GenresContainer from './GenresContainer'
 import GigsContainer from './GigsContainer'
 import GigRequestsContainer from './GigRequestsContainer'
-import BandRequestsContainer from './BandRequestsContainer'
 import GenreUpdateContainer from './GenreUpdateContainer'
 import InstrumentUpdateContainer from './InstrumentUpdateContainer'
 
@@ -17,7 +16,6 @@ class UserData extends Component {
       genres: this.props.genres,
       gigs: this.props.gigs,
       gigRequests: this.props.gigRequests,
-      bandRequests: this.props.bandRequests,
       addingAGig: false,
       editingGenre: false,
       editingInstrument: false
@@ -212,6 +210,7 @@ class UserData extends Component {
                                                 </div>
     return(
       <div className ="row">
+        <div className="profile-details">
         <h1>{this.state.user.first_name} {this.state.user.last_name}</h1>
 
         <fieldset>
@@ -245,16 +244,12 @@ class UserData extends Component {
           <br />
           <br />
           <fieldset>
-            <legend>{this.state.user.first_name}'s Requests</legend>
-            <h6>Gig Requests</h6>
+            <legend>{this.state.user.first_name}'s Gig Requests</legend>
         <GigRequestsContainer
           gigRequests={this.state.gigRequests}
           />
-        <br />
-        <br />
-        <h6>Band Requests</h6>
-        <BandRequestsContainer bandRequests={this.state.bandRequests}/>
         </fieldset>
+      </div>
       </div>
 
     )

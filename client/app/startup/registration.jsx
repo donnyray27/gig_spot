@@ -4,7 +4,6 @@ import HelloWorld from '../bundles/HelloWorld/components/HelloWorld';
 import DateTime from '../bundles/HelloWorld/components/DateTime';
 import UserData from '../containers/UserData';
 import GigRequestIndex from '../containers/GigRequestIndex'
-import BandRequestIndex from '../containers/BandRequestIndex'
 import GigRequestShow from '../components/GigRequestShow'
 import AuditionShow from '../components/AuditionShow'
 import SpotifyContainer from '../containers/SpotifyContainer'
@@ -14,7 +13,6 @@ ReactOnRails.register({
   DateTime,
   UserData,
   GigRequestIndex,
-  BandRequestIndex,
   GigRequestShow,
   AuditionShow,
   SpotifyContainer

@@ -7,19 +7,23 @@
     <title><%= content_for?(:title) ? yield(:title) : "GigSpot" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <link href="https://fonts.googleapis.com/css?family=Play|Raleway" rel="stylesheet">
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
+    <div class="banner" >
+      <img src="/assets/shutterstock_140154739_banner_Fotor" width="100%" alt="">
+    </div>
     <div class="top-bar">
   <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
-      <li class="menu-text">GigSpot</li>
+      <li class="menu-text"><%= link_to "GigSpot", root_path %></li>
       <li>
         <%= link_to "Gig Requests", gig_requests_path %>
       </li>
-      <li><a href="#">Events Near Me</a></li>
+      <li><%= link_to "Events Near Me", gigs_path %></li>
     </ul>
   </div>
 

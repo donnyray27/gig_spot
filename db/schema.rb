@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508200020) do
+ActiveRecord::Schema.define(version: 20170509001058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,36 +24,6 @@ ActiveRecord::Schema.define(version: 20170508200020) do
     t.string   "video_id"
     t.index ["gig_request_id"], name: "index_auditions_on_gig_request_id", using: :btree
     t.index ["user_id"], name: "index_auditions_on_user_id", using: :btree
-  end
-
-  create_table "band_request_genres", force: :cascade do |t|
-    t.integer  "band_request_id"
-    t.integer  "genre_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["band_request_id", "genre_id"], name: "unique_band_req_genre", unique: true, using: :btree
-    t.index ["band_request_id"], name: "index_band_request_genres_on_band_request_id", using: :btree
-    t.index ["genre_id"], name: "index_band_request_genres_on_genre_id", using: :btree
-  end
-
-  create_table "band_request_instruments", force: :cascade do |t|
-    t.integer  "band_request_id"
-    t.integer  "instrument_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["band_request_id", "instrument_id"], name: "unique_band_req_inst", unique: true, using: :btree
-    t.index ["band_request_id"], name: "index_band_request_instruments_on_band_request_id", using: :btree
-    t.index ["instrument_id"], name: "index_band_request_instruments_on_instrument_id", using: :btree
-  end
-
-  create_table "band_requests", force: :cascade do |t|
-    t.string   "title",       null: false
-    t.string   "name",        null: false
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "description", null: false
-    t.index ["user_id"], name: "index_band_requests_on_user_id", using: :btree
   end
 
   create_table "genres", force: :cascade do |t|

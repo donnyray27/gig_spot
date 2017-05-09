@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   resources :gig_requests, only: [:index, :show, :destroy] do
     resources :auditions
   end
-  resources :band_requests, only: [:index, :show]
   resources :gigs, only: [:index]
 
 
