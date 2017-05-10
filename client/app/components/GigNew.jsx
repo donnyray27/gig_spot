@@ -87,6 +87,7 @@ class GigNew extends Component{
         )
       })
     return(
+      <div>
       <table>
         <thead>
           <tr>
@@ -94,20 +95,25 @@ class GigNew extends Component{
             <th>Address</th>
             <th>Date & Time</th>
             <th>Description</th>
-            <th>Genre(s)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><input type='text' onChange={this.handleVenue} value={this.state.venue}/></td>
             <td><input type='text' onChange={this.handleAddress} value={this.state.address}/></td>
-            <td><Datetime onChange={this.handleDateTime} defaultValue=''/></td>
+            <td className="gig-date"><Datetime onChange={this.handleDateTime} defaultValue='' closeOnSelect={true}/></td>
             <td><input type='text' onChange={this.handleDescription} value={this.state.description}/></td>
-            <td width="100%"><Select name="Genres" multi={true} value={this.state.genres} options={options} onChange={this.handleGenre}/></td>
             <td><button onClick={this.handleClick}>Submit</button></td>
           </tr>
-        </tbody>
-      </table>
+
+      </tbody>
+      <tfoot>
+      <tr>
+      <td width="100%" colSpan="4"><Select name="Genres" placeholder="Select Genres" multi={true} value={this.state.genres} options={options} onChange={this.handleGenre}/></td>
+      </tr>
+    </tfoot>
+    </table>
+    </div>
     )
   }
 }

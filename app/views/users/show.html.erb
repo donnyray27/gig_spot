@@ -1,4 +1,16 @@
-<%= image_tag(@user.avatar_url) if @user.avatar? %>
+<div class="profile">
+
+<div class="row">
+  <div class="small-3 small-centered columns" id="avatar">
+    <%= image_tag(@user.avatar_url) if @user.avatar? %>
+  </div>
+</div>
+<div class="row avatar-update">
+  <div class="small-3 small-centered columns">
+    <%= link_to "Edit Acct Details", edit_user_registration_path %>
+  </div>
+</div>
+
 <%= react_component("UserData", props: { user: @user,
                                   instruments: @user_instruments,
                                   genres: @user_genres,
@@ -10,3 +22,5 @@
 
 <%= react_component("SpotifyContainer", props: {user: @user,
                                                 tracks: @user_tracks}) %>
+
+</div>

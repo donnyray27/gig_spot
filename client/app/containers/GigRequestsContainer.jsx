@@ -12,6 +12,7 @@ class GigRequestsContainer extends Component {
         return(
           <GigRequest
             key={gigRequest.id}
+            id={gigRequest.id}
             title={gigRequest.title}
             updatedAt={gigRequest.updated_at}
             />

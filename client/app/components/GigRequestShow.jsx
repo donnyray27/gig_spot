@@ -20,6 +20,7 @@ class GigRequestShow extends Component{
       genreTags: [],
       instrumentTags: [],
       description: '',
+      location: '',
       auditions: []
     }
     this.handleDate = this.handleDate.bind(this)
@@ -32,6 +33,7 @@ class GigRequestShow extends Component{
     this.handleEdit = this.handleEdit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteAudition = this.handleDeleteAudition.bind(this)
+    this.handleLocation = this.handleLocation.bind(this)
   }
   componentWillMount(){
 
@@ -58,6 +60,7 @@ class GigRequestShow extends Component{
       genreTags: genreDefaults,
       instrumentTags: instrumentDefaults,
       description: this.props.gigRequest.details.description,
+      location: this.props.gigRequest.details.address,
       auditions: this.props.gigRequest.auditions
     })
 
@@ -70,6 +73,9 @@ class GigRequestShow extends Component{
     this.setState({date: goodDate})
   }
 
+  handleLocation(event){
+    this.setState({location: event.target.value})
+  }
   handlelogChange(val){
     this.setState({genreTags: val})
   }
@@ -105,6 +111,7 @@ class GigRequestShow extends Component{
       event_date: this.state.date,
       genres: genres,
       instruments: instruments,
+      location: this.state.location,
       description: this.state.description
     }
     this.handleSubmit(payload)
@@ -191,10 +198,11 @@ class GigRequestShow extends Component{
     })
 
     let title = this.state.editable ? <h1><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h1> : <h1>{this.state.gigRequest.details.title}</h1>
-  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date}/></h6> : <h6>{this.state.date}</h6>
+  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
   let genres = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.genreTags} options={genreOptions} onChange={this.handlelogChange}/> : <div>{genreTags}</div>
 let instruments = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.instrumentTags} options={instrumentOptions} onChange={this.handleInstChange}/> : <div>{instrumentTags}</div>
-let description = this.state.editable ? <h3><input type='text' defaultValue={this.state.description} onChange={this.handleDescription}/></h3> : <h3>{this.state.gigRequest.details.description}</h3>
+let location = this.state.editable ? <h3><input type='text' defaultValue={this.state.location} onChange={this.handleLocation}/></h3> : <h3>{this.state.gigRequest.details.address}</h3>
+let description = this.state.editable ? <h3><textarea type='text' defaultValue={this.state.description} onChange={this.handleDescription}></textarea></h3> : <h3>{this.state.gigRequest.details.description}</h3>
     return(
       <div>
         <Tabs>
@@ -204,20 +212,31 @@ let description = this.state.editable ? <h3><input type='text' defaultValue={thi
            </TabList>
 
            <TabPanel>
+            <div className="row">
+             <div className="gig-req-show">
              {title}
-             <a href={'/users/' + this.state.gigRequest.user.id}><p>Posted by {this.state.gigRequest.user.first_name} {this.state.gigRequest.user.last_name}</p></a>
+             <a href={'/users/' + this.state.gigRequest.user.id}><h4>Posted by {this.state.gigRequest.user.first_name} {this.state.gigRequest.user.last_name}</h4></a>
              {date}
              {genres}
              {instruments}
+             {location}
              {description}
-             <a href={'/gig_requests/' + this.state.id + '/auditions/new'}>Submit an Audition for this Gig</a>
-             <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>
-             <button onClick={this.handleDelete}>Delete</button>
+             <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button> | <button onClick={this.handleDelete}>Delete</button>
+             <br/>
+             <br/>
+             <button className="go-to-audition"><a href={'/gig_requests/' + this.state.id + '/auditions/new'}>Submit an Audition for this Gig</a></button>
+             <br/>
+             </div>
+           </div>
            </TabPanel>
            <TabPanel>
+             <div className="row">
+               <div className="small-12 small-centered audition-index">
               <AuditionIndex
                 auditions={this.state.auditions}
                 handleDeleteAudition ={this.handleDeleteAudition}/>
+            </div>
+          </div>
            </TabPanel>
          </Tabs>
       </div>

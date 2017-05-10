@@ -51,7 +51,7 @@ class GenreUpdateContainer extends Component{
               value={this.state.checkedGenres}
               options={allGenres}
               onChange={this.handleUpdate}/>
-            <button onClick={this.handleGenreChange}>Done</button>
+            <button className="candy-button" onClick={this.handleGenreChange}>Done</button>
           </div>
         )
       }

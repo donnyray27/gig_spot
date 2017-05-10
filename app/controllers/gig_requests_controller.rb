@@ -4,7 +4,7 @@ class GigRequestsController < ApplicationController
 
   def index
     @gig_requests = []
-    all_gig_requests = GigRequest.all
+    all_gig_requests = GigRequest.all.order(created_at: :desc)
     all_gig_requests.each do |gig_request|
       gig_genres = gig_request.genres.pluck(:name)
       gig_instruments = gig_request.instruments.pluck(:name)
@@ -25,7 +25,12 @@ class GigRequestsController < ApplicationController
     gig_requested = GigRequest.find(params[:id])
     gig_genres = gig_requested.genres.pluck(:name)
     gig_instruments = gig_requested.instruments.pluck(:name)
-    gig_auditions = gig_requested.auditions.pluck(:id, :name)
+    audition_data = gig_requested.auditions.pluck(:id, :name)
+    gig_auditions = audition_data.map do |audition|
+      this_audition = Audition.find(audition[0])
+      audition_user = this_audition.user
+      audition << audition_user
+    end
     gig_poster = gig_requested.user
     @gig_request = {
       details: gig_requested,
@@ -38,11 +43,21 @@ class GigRequestsController < ApplicationController
     @all_instruments = Instrument.all.pluck(:name)
   end
 
+  def update
+    if !params[:location].empty? && !params[:genres].empty? && !params[:instruments].empty?
+      matching_genres = []
+      params[:genres].each do |genre|
+        genre = Genre.find(genre.id)
+        matching_genres << GigRequestGenre.where(genre_id: genre.id)
+      end
+    end
+  end
+
   def destroy
     gig_request = GigRequest.find(params[:id])
     gig_request_instruments = GigRequestInstrument.where(gig_request_id: gig_request.id)
     gig_request_genres = GigRequestGenre.where(gig_request_id: gig_request.id)
-
+    gig_request_auditions = Audition.where(gig_request_id: gig_request.id)
     unless gig_request_instruments.empty?
       gig_request_instruments.each do |instrument|
         instrument.destroy
@@ -52,6 +67,12 @@ class GigRequestsController < ApplicationController
     unless gig_request_genres.empty?
       gig_request_genres.each do |genre|
         genre.destroy
+      end
+    end
+
+    unless gig_request_auditions.empty?
+      gig_request_auditions.each do |audition|
+        audition.destroy
       end
     end
 
@@ -72,5 +93,16 @@ class GigRequestsController < ApplicationController
                           user: gig_poster
                         }
     end
+  end
+
+  private
+  def gig_request_params
+    params.permit(
+    :id,
+    :location,
+    :genres,
+    :instruements,
+    :distance
+    )
   end
 end

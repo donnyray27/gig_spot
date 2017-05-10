@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import GigRequestTile from '../components/GigRequestTile'
+import GigRequestSearch from '../components/GigRequestSearch'
 import GigReqForm from './GigReqForm'
+import Select from 'react-select'
 class GigRequestIndex extends Component{
   constructor(props){
     super(props)
@@ -10,11 +12,38 @@ class GigRequestIndex extends Component{
     }
     this.handleNewGigReq = this.handleNewGigReq.bind(this)
     this.handleFormToggle = this.handleFormToggle.bind(this)
+    this.handleSearchGig = this.handleSearchGig.bind(this)
   }
 
   componentWillMount(){
     this.setState({gigReqs: this.props.gigRequests})
   }
+
+
+  handleSearchGig(searchParams){
+    let query = searchParams
+
+    fetch(`gig_requests/1`, {
+    credentials: 'same-origin',
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(query)
+  })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+      this.setState({ gigReqs: response});
+    })
+}
 
   handleFormToggle(){
     this.setState({newRequest: !this.state.newRequest})
@@ -54,6 +83,7 @@ class GigRequestIndex extends Component{
           postDate={gigRequest.details.created_at}
           genres={gigRequest.genres}
           instruments={gigRequest.instruments}
+          location={gigRequest.details.address}
           user={gigRequest.user}
           />
       )
@@ -64,19 +94,30 @@ class GigRequestIndex extends Component{
                                               allInstruments={this.props.allInstruments}
                                               onSubmit={this.handleNewGigReq}
                                               onCancel={this.handleFormToggle}/> :
-                                              <button className="small-centered" onClick={this.handleFormToggle}>Post a Request</button>
+                                              <div>
+                                                <button className="enjoy-css" onClick={this.handleFormToggle}>Post a Request</button>
+                                              </div>
+
+
+
 
     return(
       <div>
-        <div className="request-tile">
+        <GigRequestSearch
+          allGenres={this.props.allGenres}
+          allInstruments={this.props.allInstruments}
+          handleSubmit = {this.handleSearchGig}
+          />
         {revealForm}
-      </div>
+        <div className="row">
+        <div className="request-tile">
         <table>
           <thead>
             <tr>
               <th>Title</th>
               <th>Genre(s)</th>
               <th>Instrument(s)</th>
+              <th>Location</th>
               <th>Posted By</th>
               <th>Post Date</th>
             </tr>
@@ -86,6 +127,8 @@ class GigRequestIndex extends Component{
           </tbody>
         </table>
       </div>
+      </div>
+    </div>
     )
   }
 }

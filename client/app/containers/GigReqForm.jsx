@@ -10,7 +10,8 @@ class GigReqForm extends Component{
       instrumentTags: [],
       title: '',
       description: '',
-      date: ''
+      date: '',
+      location: ''
     }
     this.handlelogChange = this.handlelogChange.bind(this)
     this.handleInstChange = this.handleInstChange.bind(this)
@@ -20,10 +21,15 @@ class GigReqForm extends Component{
     this.handleDate = this.handleDate.bind(this)
     this.parseSelect = this.parseSelect.bind(this)
     this.clearForm = this.clearForm.bind(this)
+    this.handleLocation = this.handleLocation.bind(this)
   }
 
   handleTitle(event){
     this.setState({title: event.target.value})
+  }
+
+  handleLocation(event){
+    this.setState({location: event.target.value})
   }
 
   handleDescription(event){
@@ -48,7 +54,8 @@ class GigReqForm extends Component{
       date: '',
       genreTags: [],
       instrumentTags: [],
-      description: ''
+      description: '',
+      location: ''
     })
   }
 
@@ -69,7 +76,8 @@ class GigReqForm extends Component{
       event_date: this.state.date,
       genres: genres,
       instruments: instruments,
-      description: this.state.description
+      description: this.state.description,
+      location: this.state.location
     }
     this.props.onSubmit(gigReq)
   }
@@ -86,22 +94,38 @@ class GigReqForm extends Component{
       )
     })
     return(
-      <div className="small-centered gig_req_form">
-      <form className="small-12 med-8 lg-6 small-centered">
+      <div className="row gig-req-form">
+      <form className="column small-12 med-8 lg-6 small-centered">
         <TextField
           label='Heading'
           content={this.state.title}
           name='title'
           handlerFunction={this.handleTitle}
+          placeholder="Required"
           />
         <br />
+        <br/>
         <label>
           Gig Date:
+          <div className="date-field">
         <Datetime
           onChange={this.handleDate}
           timeFormat={false}
+          closeOnSelect={true}
           />
+      </div>
       </label>
+      <br/>
+      <br/>
+      <TextField
+        label='City/State'
+        content={this.state.location}
+        name='location'
+        handlerFunction={this.handleLocation}
+        placeholder="Required: e.g. Boston, MA"
+        />
+      <br/>
+      <br/>
       <label>
         Genre(s):
       <Select
@@ -112,6 +136,7 @@ class GigReqForm extends Component{
         onChange={this.handlelogChange}
         />
     </label>
+    <br/>
       <label>Instrument(s):
         <Select
           name="Instruments"
@@ -121,18 +146,21 @@ class GigReqForm extends Component{
           onChange={this.handleInstChange}
           />
       </label>
-          <TextField
-            label='Description'
-            content={this.state.description}
-            name='description'
-            handlerFunction={this.handleDescription}
-            />
+      <br/>
+          <label>Description</label><br/>
+          <textarea placeholder="Required: Provide a short description of what your're looking for and consider providing an audition piece!"
+            rows="3"
+            cols="70"
+            value={this.state.description}
+            onChange={this.handleDescription}>
+          </textarea>
           <br />
-          <button onClick={this.handleSubmit}>Submit</button>
+          <div className="gig-req-buttons">
+          <button className="gig-req-submit" onClick={this.handleSubmit}>Submit</button>
           <br />
-          <button onClick={this.clearForm}>Clear</button> |
-          <button onClick={this.props.onCancel}>Cancel</button>
-        </form>
+          <button className="clear-cancel" onClick={this.clearForm}>Clear</button> | <button className="clear-cancel" onClick={this.props.onCancel}>Cancel</button>
+          </div>
+      </form>
       </div>
     )
   }

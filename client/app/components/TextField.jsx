@@ -8,6 +8,7 @@ const TextField = props => {
         onChange={props.handlerFunction}
         type='text'
         value={props.content}
+        placeholder={props.placeholder}
       />
     </label>
   );

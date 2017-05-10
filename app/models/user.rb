@@ -9,7 +9,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true
-  validates :bio, presence: true
 
   has_many :user_genres
   has_many :genres, through: :user_genres

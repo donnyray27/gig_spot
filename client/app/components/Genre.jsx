@@ -9,7 +9,7 @@ class Genre extends Component {
   render(){
 
     return(
-      <p>{this.props.genreName}</p>
+      <div className="tag">{this.props.genreName}</div>
     )
   }
 }

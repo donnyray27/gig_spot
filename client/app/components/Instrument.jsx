@@ -9,7 +9,7 @@ class Instrument extends Component {
   render(){
 
     return(
-      <p>{this.props.instrumentName}</p>
+      <div className="tag">{this.props.instrumentName}</div>
     )
   }
 }

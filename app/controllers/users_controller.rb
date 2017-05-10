@@ -19,7 +19,6 @@ class UsersController < ApplicationController
     end
 
     @user_gig_requests = @user.gig_requests
-    @user_band_requests = @user.band_requests
     @user_tracks = @user.user_tracks
     @all_genres = Genre.all.order(name: :asc).pluck(:name)
     @all_instruments = Instrument.all.order(name: :asc).pluck(:name)

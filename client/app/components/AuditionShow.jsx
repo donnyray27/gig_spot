@@ -36,12 +36,14 @@ class AuditionShow extends Component{
     })
 
     return(
-      <div>
+      <div className="row">
+        <div className="small-12 large-8 small-centered gig-details">
         <h1>{this.props.gigRequest.details.title}</h1>
         <h6>{this.state.date}</h6>
         <div>{genreTags}</div>
         <div>{instrumentTags}</div>
-        <h3>{this.props.gigRequest.details.description}</h3>
+        <h4>{this.props.gigRequest.details.address}</h4>
+        </div>
       </div>
     )
   }

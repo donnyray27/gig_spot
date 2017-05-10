@@ -16,7 +16,7 @@ componentWillMount(){
   render(){
     return(
       <tr>
-        <td>{this.props.title}</td>
+        <td><a href={'/gig_requests/' + this.props.id}>{this.props.title}</a></td>
         <td>{this.state.dateUpdated}</td>
       </tr>
     )

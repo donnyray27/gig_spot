@@ -24,10 +24,11 @@ class GigRequestTile extends Component{
         )
       })
     return(
-      <tr>
+      <tr className="gig-tile-row">
         <td><a href={'/gig_requests/' + this.props.id}>{this.props.title}</a></td>
         <td>{genreTags}</td>
         <td>{instrumentTags}</td>
+        <td>{this.props.location}</td>
         <td><a href={'/users/' + this.props.user.id }>{this.props.user.first_name} {this.props.user.last_name}</a></td>
         <td>{formatDate}</td>
       </tr>
