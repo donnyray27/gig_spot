@@ -198,7 +198,7 @@ class GigRequestShow extends Component{
     })
 
     let title = this.state.editable ? <h1><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h1> : <h1>{this.state.gigRequest.details.title}</h1>
-  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date}/></h6> : <h5>Gig Date: {this.state.date}</h5>
+  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
   let genres = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.genreTags} options={genreOptions} onChange={this.handlelogChange}/> : <div>{genreTags}</div>
 let instruments = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.instrumentTags} options={instrumentOptions} onChange={this.handleInstChange}/> : <div>{instrumentTags}</div>
 let location = this.state.editable ? <h3><input type='text' defaultValue={this.state.location} onChange={this.handleLocation}/></h3> : <h3>{this.state.gigRequest.details.address}</h3>

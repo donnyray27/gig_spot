@@ -10,6 +10,12 @@
 
 }
 
+.avatar-update {
+  a {
+    color: white;
+  }
+}
+
 .profile {
   background: url('/assets/microphone-337747_1280_Fotor.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -19,6 +25,15 @@
   background-color: black;
 }
 
+.gig-date {
+  table{
+    background-color: white;
+  }
+  td{
+    background-color: #E0E3E6;
+    color: black;
+  }
+}
 .profile-details {
   h1 {
     font-weight: bold;

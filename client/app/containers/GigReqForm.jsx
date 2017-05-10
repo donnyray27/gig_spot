@@ -111,6 +111,7 @@ class GigReqForm extends Component{
         <Datetime
           onChange={this.handleDate}
           timeFormat={false}
+          closeOnSelect={true}
           />
       </div>
       </label>

@@ -102,7 +102,7 @@ class Gig extends Component {
 
     let venue = this.state.editable ? <td><input type='text' defaultValue={this.props.venue} onChange={this.handleVenueChange} /></td> : <td>{this.props.venue}</td>;
     let address = this.state.editable ? <td><input type='text' defaultValue={this.props.address} onChange={this.handleAddressChange}/></td> : <td>{this.props.address}</td>;
-    let dateTime = this.state.editable ? <td><Datetime onChange={this.handleDateTimeChange} defaultValue={this.state.dateTime}/></td> : <td>{this.state.dateTime}</td>;
+    let dateTime = this.state.editable ? <td><Datetime onChange={this.handleDateTimeChange} defaultValue={this.state.dateTime} closeOnSelect={true}/></td> : <td>{this.state.dateTime}</td>;
     let description = this.state.editable ? <td><input type='text' defaultValue={this.props.description} onChange={this.handleDescriptionChange} /></td>: <td>{this.props.description}</td>;
     let genreDisplay = this.state.editable ? <td width="100%"><Select name="Genres" multi={true} value={this.state.genres} options={options} onChange={this.handleGenre}/></td> : <td className="genre-column">{genres}</td>
     return(

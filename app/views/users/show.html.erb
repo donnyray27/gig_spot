@@ -5,6 +5,11 @@
     <%= image_tag(@user.avatar_url) if @user.avatar? %>
   </div>
 </div>
+<div class="row avatar-update">
+  <div class="small-3 small-centered columns">
+    <%= link_to "Edit Acct Details", edit_user_registration_path %>
+  </div>
+</div>
 
 <%= react_component("UserData", props: { user: @user,
                                   instruments: @user_instruments,
