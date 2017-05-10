@@ -2,9 +2,19 @@
 
 
 <%= react_component("AuditionShow", props: {gigRequest: @gig_request}) %>
+<div class="row">
+	<div class="column small-12 large-8 small-centered">
+		<div id="hdfvr-content" ></div>
 
-<div id="hdfvr-content" ></div>
-<button><%= link_to "All Set", gig_requests_path %></button>
+	</div>
+
+</div>
+	<div class="row">
+		<div class="small-3 small-centered">
+			<button class="go-to-audition"><%= link_to "All Set", gig_requests_path %></button>
+
+		</div>
+	</div>
 </div>
 <script>
 function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recorderId, audioCodec, videoCodec, fileType, videoId){
@@ -18,6 +28,7 @@ function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recor
   console.log(idString)
   var streamName = args[0]
   console.log(streamName);
+	alert("Your video was successfully uploaded!")
   var videoId = args[9]
   let newAudtion = {
           gig_request_id: idString,

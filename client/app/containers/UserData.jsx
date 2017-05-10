@@ -182,8 +182,8 @@ class UserData extends Component {
   render() {
 
   let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig} allGenres={this.props.genresAll}/>
-                                        <button onClick={this.handleCreate}>Cancel</button></div> :
-                                        <button onClick={this.handleCreate}>Add a Gig</button>
+                                        <button className="candy-button" onClick={this.handleCreate}>Cancel</button></div> :
+                                        <button className="candy-button" onClick={this.handleCreate}>Add a Gig</button>
 
   let editGenre = this.state.editingGenre ?
                         <GenreUpdateContainer
@@ -193,7 +193,7 @@ class UserData extends Component {
                                 /> : <div>
                                       <GenresContainer
                                         genres={this.state.genres}/>
-                                      <button onClick={this.handleEditGenre}>Edit</button>
+                                      <button className="candy-button" onClick={this.handleEditGenre}>Edit</button>
                                     </div>
 
 
@@ -206,7 +206,7 @@ class UserData extends Component {
                                             />
                                         </div> : <div>
                                                   <InstrumentsContainer instruments={this.state.instruments}/>
-                                                  <button onClick={this.handleEditInstrument}>Edit</button>
+                                                  <button className="candy-button" onClick={this.handleEditInstrument}>Edit</button>
                                                 </div>
     return(
       <div className ="row">
@@ -218,29 +218,34 @@ class UserData extends Component {
           <h5>{this.state.user.bio}</h5>
         </fieldset>
 
+      <div className="row inst-genre">
+        <div className="column small-12 large-6 tag-field">
     <fieldset>
         <legend>Instruments</legend>
         {editInstrument}
       </fieldset>
-
+    </div>
+    <div className="column small-12 large-6 tag-field">
       <fieldset>
         <legend>Genre(s)</legend>
         {editGenre}
       </fieldset>
-                        <br />
-                        <br />
+    </div>
+    </div>
                         <br />
                         <br />
 
+      <div className="gigs">
         <fieldset>
           <legend>{this.state.user.first_name}'s Gigs</legend>
-      <GigsContainer gigs={this.state.gigs}
-          onUpdate={this.handleGigUpdate}
-          handleGigDelete={this.handleGigDelete}
-          genres={this.props.genresAll}
+          <GigsContainer gigs={this.state.gigs}
+            onUpdate={this.handleGigUpdate}
+            handleGigDelete={this.handleGigDelete}
+            genres={this.props.genresAll}
           />
           {addGig}
         </fieldset>
+        </div>
           <br />
           <br />
           <fieldset>
@@ -249,7 +254,7 @@ class UserData extends Component {
           gigRequests={this.state.gigRequests}
           />
         </fieldset>
-      </div>
+        </div>
       </div>
 
     )

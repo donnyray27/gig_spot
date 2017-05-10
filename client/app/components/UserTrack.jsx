@@ -7,10 +7,10 @@ class UserTrack extends Component{
 
   render(){
     return(
-      <div>
+      <div className="column column-block small-centered spotify-object">
       <iframe src={'https://open.spotify.com/embed?uri=' + this.props.uri}
               width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
-            <button onClick={this.props.onDelete}>Remove</button>
+            <button className="candy-button" onClick={this.props.onDelete}>Remove</button>
       </div>
     )
   }

@@ -136,17 +136,23 @@ class SpotifyContainer extends Component{
 
     return(
       <div className="row">
+        <div className="spotify-container">
         <fieldset>
           <legend>{this.props.user.first_name}'s Tracks</legend>
+          <div className="row small-up-1 medium-up-2 large-up-4 spotify-tracks">
           {tracks}
+            </div>
         <form>
           <label>Add Your Tracks from Spotify:</label>
           <input type="query" onChange={this.handleSearchQuery}/>
-          <input type="submit" onClick={this.handleSubmit} />
+          <input type="submit" onClick={this.handleSubmit} value="Search"/>
 
         </form>
+
           {results}
+
         </fieldset>
+      </div>
     </div>
     )
   }

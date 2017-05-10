@@ -8,9 +8,21 @@
   background-size: cover;
 }
 
-.avatar{
-  border-radius: 100%
+.flash {
+  background-color: #657281;
+  color: $white;
+  font-size: 20px;
+  padding: 0.5em;
+  text-align: center;
 }
+
+.navigation {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.4em;
+  color: white;
+}
+
+
 .form-submit-button {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -80,17 +92,4 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-.profile {
-  background: url('/assets/wood-1759566_1920_Fotor.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: black;
-}
-
-.profile-details {
-  background-color: white;
 }

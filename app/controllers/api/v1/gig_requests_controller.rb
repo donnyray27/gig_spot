@@ -2,12 +2,14 @@ class Api::V1::GigRequestsController < ApplicationController
 
   skip_before_action  :verify_authenticity_token
 
+
   def create
     user = current_user
     gig_req = GigRequest.create(
     title: params[:title],
     event_date: params[:event_date],
     description: params[:description],
+    address: params[:location],
     user_id: user.id
     )
     if params[:genres]
@@ -28,10 +30,12 @@ class Api::V1::GigRequestsController < ApplicationController
     all_gig_requests.each do |gig_request|
       gig_genres = gig_request.genres.pluck(:name)
       gig_instruments = gig_request.instruments.pluck(:name)
+      gig_poster = gig_request.user
       @gig_requests << {
                           details: gig_request,
                           genres: gig_genres,
-                          instruments: gig_instruments
+                          instruments: gig_instruments,
+                          user: gig_poster
                         }
     end
     @all_genres = Genre.all.pluck(:name)
@@ -46,6 +50,7 @@ class Api::V1::GigRequestsController < ApplicationController
     title: params[:title],
     event_date: params[:event_date],
     description: params[:description],
+    address: params[:location],
     user_id: user.id
     )
     gig_req_genres = gig_req.genres.pluck(:name)
@@ -92,10 +97,12 @@ class Api::V1::GigRequestsController < ApplicationController
     gig_requested = GigRequest.find(params[:id])
     gig_genres = gig_requested.genres.pluck(:name)
     gig_instruments = gig_requested.instruments.pluck(:name)
+    gig_poster = gig_requested.user
     @gig_request = {
       details: gig_requested,
       genres: gig_genres,
-      instruments: gig_instruments
+      instruments: gig_instruments,
+      user: gig_poster
     }
     render json: @gig_request
   end
@@ -109,6 +116,7 @@ class Api::V1::GigRequestsController < ApplicationController
       :description,
       :genres,
       :instruments,
+      :location,
       :id
       )
 

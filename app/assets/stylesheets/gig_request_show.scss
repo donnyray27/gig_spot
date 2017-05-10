@@ -1,67 +1,56 @@
-.gig-req-index{
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-color: black;
+.gig-show-page {
   height: 50em;
 }
-
-.request-tile{
-  th {
-    background-color: #091D35;
-    color: #FAFAF8;
-    font-size: 17px;
+.gig-req-show {
+  text-align: center;
+  a {
+    color: black;
   }
-}
-.gig-tile-row{
-  font-size: 20px;
-}
+  a:hover{
+    color: #8BB3E5;
+  }
 
-.gig-tile-row:hover{
-  background-color: #8BB3E5;
 }
 
 
-
-.enjoy-css {
+.go-to-audition {
+  a {
+    color: white;
+  }
+  a:hover{
+    color: white;
+  }
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  position: fixed;
-  top: 50%;
-  right: 4em;
-  z-index:9999;
-    margin-top:-15px;
-      margin-right: 20px;
-  width: 7em;
-  height: 4em;
+  width: 250px;
+  height: 70px;
   cursor: pointer;
   margin: 0 auto;
-  border: 2px solid #355678;
+  border: 2px solid rgba(9,29,53,1);
   -webkit-border-radius: 40px;
   border-radius: 40px;
-  font: normal 20px/30px "Advent Pro", Helvetica, sans-serif;
+  font-weight: 600;
+  font: normal 18px/20px "Advent Pro", Helvetica, sans-serif;
   color: rgba(255,255,255,1);
   text-align: center;
   -o-text-overflow: clip;
   text-overflow: clip;
   letter-spacing: 1px;
-  background: rgba(0,0,0,0);
+  background: rgba(9,29,53,1);
   -webkit-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   -moz-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   -o-transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
   transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
 }
 
-.enjoy-css:hover {
-  color: rgba(255,255,255,1);
-  background: #355678;
+.go-to-audition:hover {
+  border: 2px solid rgba(255,255,255,1);
 }
 
-.enjoy-css:active {
-  border: 2px solid rgba(53,86,120,1);
-  background: rgba(56,113,170,1);
+.go-to-audition:active {
+  border: 2px solid rgba(60,115,178,1);
+  background: rgba(17,52,81,1);
   -webkit-transition: none;
   -moz-transition: none;
   -o-transition: none;

@@ -51,7 +51,7 @@ class InstrumentUpdateContainer extends Component{
               value={this.state.checkedInstruments}
               options={allInstruments}
               onChange={this.handleUpdate}/>
-            <button onClick={this.handleInstrumentChange}>Done</button>
+            <button className="candy-button" onClick={this.handleInstrumentChange}>Done</button>
           </div>
         )
       }

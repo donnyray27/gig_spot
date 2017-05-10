@@ -10,4 +10,8 @@ class GigRequest < ApplicationRecord
   has_many :instruments, through: :gig_request_instruments
 
   has_many :auditions
+
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
+
 end
