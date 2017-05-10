@@ -51,5 +51,9 @@
     "react-tabs": "^0.8.3",
     "webpack": "^2.3.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ]
 }
