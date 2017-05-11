@@ -95,3 +95,11 @@ instruments = [
 instruments.each do |instrument|
   Instrument.create(name: instrument)
 end
+
+User.create(
+first_name: "Donathan",
+last_name: "Raymond",
+email: "drayman27@msn.com",
+role: "admin",
+avatar: "bass_guitar_hero_by_karate_chop.jpg"
+)
