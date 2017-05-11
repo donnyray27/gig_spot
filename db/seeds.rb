@@ -100,7 +100,7 @@ User.create(
 first_name: "Donathan",
 last_name: "Raymond",
 email: "drayman27@msn.com",
-password: "ferrari"
+password: "ferrari",
 role: "admin",
 avatar: "bass_guitar_hero_by_karate_chop.jpg"
 )
