@@ -1,30 +1,15 @@
 {
   "name": "react-webpack-rails-tutorial",
-  "version": "2.0.0",
-  "description": "GigSpot - a musician networking app",
-  "main": "server-express.js",
+  "version": "0.0.1",
+  "private": true,
   "engines": {
-    "node": "7.8.0",
-    "npm": "4.4.4",
-    "yarn": "0.22.0"
+    "node": "6.9.0",
+    "npm": "4.1.1"
   },
 
   "scripts": {
-   "heroku-postbuild": "NODE_ENV=production npm run webpack -- -p",
-   "start": "cd client && npm run webpack -- --watch",
-   "test": "node_modules/.bin/karma start react/karma.conf.js",
-   "webpack": "node_modules/.bin/webpack --config ./react/webpack.config.js"
- },
-
-  "repository": {
-    "url": "https://github.com/donnyray27/gig_spot",
-    "type": "git"
-  },
-
-  "dependencies": {},
-  "devDependencies": {},
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules"
-  ]
+    "postinstall": "cd client && yarn install",
+    "rails-server": "foreman start -f Procfile.dev",
+    "test": "rspec"
+  }
 }

@@ -8,7 +8,8 @@ class GigRequestIndex extends Component{
     super(props)
     this.state = {
       gigReqs: [],
-      newRequest: false
+      newRequest: false,
+      noSearchResults: false
     }
     this.handleNewGigReq = this.handleNewGigReq.bind(this)
     this.handleFormToggle = this.handleFormToggle.bind(this)
@@ -41,6 +42,11 @@ class GigRequestIndex extends Component{
     .then(response => response.json())
     .then(response => {
       console.log(response)
+      if(response.length < 1){
+        this.setState({noSearchResults: true})
+      }else{
+        this.setState({noSearchResults: false})
+      }
       this.setState({ gigReqs: response});
     })
 }
@@ -99,7 +105,10 @@ class GigRequestIndex extends Component{
                                               </div>
 
 
-
+    let gigSearchResults;
+      if(this.state.noSearchResults === true){
+        gigSearchResults = <h3 className="search-error">Your Search didn't yield any results</h3>
+      }
 
     return(
       <div>
@@ -109,7 +118,8 @@ class GigRequestIndex extends Component{
           handleSubmit = {this.handleSearchGig}
           />
         {revealForm}
-        <div className="row">
+        {gigSearchResults}
+        <div className="row gig-req-table">
         <div className="request-tile">
         <table>
           <thead>
