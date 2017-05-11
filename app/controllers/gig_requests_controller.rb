@@ -44,7 +44,28 @@ class GigRequestsController < ApplicationController
 
   def update
     results = []
+    results_genres = []
+    results_instruments = []
     if !params[:genres].empty? && !params[:instruments].empty?
+      params[:genres].each do |genre|
+      genre = Genre.find_by(name: genre)
+      gig_requests = genre.gig_requests
+      results_genres += gig_requests
+      end
+      params[:instruments].each do |instrument|
+      instrument = Instrument.find_by(name: instrument)
+      gig_requests = instrument.gig_requests
+      results_instruments += gig_requests
+      end
+
+      results = results_genres & results_instruments
+      unless results.empty?
+        @gig_requests = []
+        @gig_requests = format_gigs(results)
+        render json: @gig_requests
+      else
+        render json: []
+      end
 
     elsif !params[:genres].empty?
         params[:genres].each do |genre|
@@ -59,6 +80,21 @@ class GigRequestsController < ApplicationController
         else
           render json: []
         end
+
+    elsif !params[:instruments].empty?
+      params[:instruments].each do |instrument|
+      instrument = Instrument.find_by(name: instrument)
+      gig_requests = instrument.gig_requests
+      results += gig_requests
+      end
+      unless results.empty?
+        @gig_requests = []
+        @gig_requests = format_gigs(results)
+        render json: @gig_requests
+      else
+        render json: []
+      end
+
     else
       all_gig_requests = GigRequest.all.order(created_at: :desc)
       @gig_requests = format_gigs(all_gig_requests)
