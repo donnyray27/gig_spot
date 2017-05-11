@@ -1,6 +1,5 @@
 class Api::V1::GigRequestsController < ApplicationController
 
-  skip_before_action  :verify_authenticity_token
 
 
   def create
@@ -26,7 +25,7 @@ class Api::V1::GigRequestsController < ApplicationController
     end
 
     @gig_requests = []
-    all_gig_requests = GigRequest.all
+    all_gig_requests = GigRequest.all.order(created_at: :desc)
     all_gig_requests.each do |gig_request|
       gig_genres = gig_request.genres.pluck(:name)
       gig_instruments = gig_request.instruments.pluck(:name)

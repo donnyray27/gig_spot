@@ -1,6 +1,5 @@
 class Api::V1::GigsController < ApplicationController
 
-  skip_before_action  :verify_authenticity_token
 
   def index
     @gigs = Gig.all

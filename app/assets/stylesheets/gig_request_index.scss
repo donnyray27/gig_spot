@@ -4,7 +4,7 @@
   -o-background-size: cover;
   background-size: cover;
   background-color: black;
-  height: 50em;
+  height: 70em;
 }
 
 .request-tile{
@@ -20,6 +20,15 @@
 
 .gig-tile-row:hover{
   background-color: #8BB3E5;
+}
+
+.gig-req-table {
+  padding-top: 3em;
+}
+
+.search-error {
+  color: white;
+  text-align: center;
 }
 
 

@@ -1,6 +1,5 @@
 class GigRequestsController < ApplicationController
 
-  skip_before_action  :verify_authenticity_token
 
   def index
     @gig_requests = []
@@ -44,13 +43,28 @@ class GigRequestsController < ApplicationController
   end
 
   def update
-    if !params[:location].empty? && !params[:genres].empty? && !params[:instruments].empty?
-      matching_genres = []
-      params[:genres].each do |genre|
-        genre = Genre.find(genre.id)
-        matching_genres << GigRequestGenre.where(genre_id: genre.id)
-      end
+    results = []
+    if !params[:genres].empty? && !params[:instruments].empty?
+
+    elsif !params[:genres].empty?
+        params[:genres].each do |genre|
+        genre = Genre.find_by(name: genre)
+        gig_requests = genre.gig_requests
+        results += gig_requests
+        end
+        unless results.empty?
+          @gig_requests = []
+          @gig_requests = format_gigs(results)
+          render json: @gig_requests
+        else
+          render json: []
+        end
+    else
+      all_gig_requests = GigRequest.all.order(created_at: :desc)
+      @gig_requests = format_gigs(all_gig_requests)
+      render json: @gig_requests
     end
+
   end
 
   def destroy
@@ -104,5 +118,21 @@ class GigRequestsController < ApplicationController
     :instruements,
     :distance
     )
+  end
+
+  def format_gigs(array)
+    return_value = []
+      array.each do |gig_request|
+      gig_genres = gig_request.genres.pluck(:name)
+      gig_instruments = gig_request.instruments.pluck(:name)
+      gig_poster = gig_request.user
+      return_value << {
+                          details: gig_request,
+                          genres: gig_genres,
+                          instruments: gig_instruments,
+                          user: gig_poster
+                        }
+    end
+    return return_value
   end
 end
