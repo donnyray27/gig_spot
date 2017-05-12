@@ -73,7 +73,7 @@ class GigRequestShow extends Component{
 
   validateDate(input){
     if(input === "Invalid date" || input === ''){
-      let newError = {date: 'Please select a valid date and time'}
+      let newError = {date: 'Please select a valid date'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
     } else {
@@ -93,13 +93,8 @@ class GigRequestShow extends Component{
 
   validateLocation(input){
     let regex = /^\s|^\s+/g
-    let regexTwo = /^[A-Za-z]+,[ ]?[A-Za-z]{2,}$/g
-    if(input.match(regex)){
+    if(input.match(regex) || input === ''){
       let newError = {location: 'Location is a required field'}
-      this.setState({ errors: Object.assign(this.state.errors, newError) })
-      return false
-    } else if (!input.match(regexTwo)) {
-      let newError = {location: "Please enter in the form 'City, State'"}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
     }else {
@@ -124,7 +119,7 @@ class GigRequestShow extends Component{
 
   validateTitle(input){
     let regex = /^\s|^\s+/g
-    if(input.match(regex)){
+    if(input.match(regex) || input === ''){
       let newError = {heading: 'Heading is a required field'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
@@ -143,7 +138,7 @@ class GigRequestShow extends Component{
 
   validateDescription(input){
     let regex = /^\s|^\s+/g
-    if(input.match(regex)){
+    if(input.match(regex) || input === ''){
       let newError = {description: 'Description is a required field'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
@@ -172,19 +167,29 @@ class GigRequestShow extends Component{
     event.preventDefault()
     let genres = this.parseSelect(this.state.genreTags)
     let instruments = this.parseSelect(this.state.instrumentTags)
-
-    let payload = {
-      id: this.state.gigRequest.details.id,
-      title: this.state.title,
-      event_date: this.state.date,
-      genres: genres,
-      instruments: instruments,
-      location: this.state.location,
-      description: this.state.description
+    if (this.validateTitle(this.state.title) &&
+        this.validateDate(this.state.date) &&
+        this.validateDescription(this.state.description) &&
+        this.validateLocation(this.state.location)
+      ) {
+        let payload = {
+          id: this.state.gigRequest.details.id,
+          title: this.state.title,
+          event_date: this.state.date,
+          genres: genres,
+          instruments: instruments,
+          location: this.state.location,
+          description: this.state.description
+        }
+        this.handleSubmit(payload)
+        this.setState({
+          editable: !this.state.editable,
+          errors: {}
+        })
+      }else{
+        this.setState({editable: true})
+      }
     }
-    this.handleSubmit(payload)
-    this.setState({editable: !this.state.editable})
-  }
 
   handleSubmit(gigUpdate) {
         let id = this.state.gigRequest.details.id
@@ -218,10 +223,16 @@ class GigRequestShow extends Component{
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
         })
-        const path = `/gig_requests`
-        browserHistory.push(path)
+          .then(response => {
+            if (response.ok) {
+              window.location.href = '/gig_requests'
+            } else {
+              let errorMessage = `${response.status} (${response.statusText})`,
+                  error = new Error(errorMessage);
+              throw(error);
+            }
+          })
         }
-
       }
 
     handleDeleteAudition(id){

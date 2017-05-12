@@ -145,8 +145,7 @@ before_action :require_login
 
     gig_request.destroy
 
-    flash.now[:notice] = "Request Successfully Deleted"
-    redirect_to controller: "gig_requests", action: "index"
+
   end
 
   private

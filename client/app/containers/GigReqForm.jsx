@@ -51,16 +51,11 @@ class GigReqForm extends Component{
 
   validateLocation(input){
     let regex = /^\s|^\s+/g
-    let regexTwo = /^[A-Za-z]+,[ ]?[A-Za-z]{2,}$/g
-    if(input.match(regex)){
+    if(input.match(regex) || input === ''){
       let newError = {location: 'Location is a required field'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
-    } else if (!input.match(regexTwo)) {
-      let newError = {location: "Please enter in the form 'City, State'"}
-      this.setState({ errors: Object.assign(this.state.errors, newError) })
-      return false
-    }else {
+    } else {
       let errorState = this.state.errors
       delete errorState.location
       this.setState({ errors: errorState })
@@ -75,7 +70,7 @@ class GigReqForm extends Component{
 
   validateDescription(input){
     let regex = /^\s|^\s+/g
-    if(input.match(regex)){
+    if(input.match(regex) || input === ''){
       let newError = {description: 'Description is a required field'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
@@ -94,7 +89,7 @@ class GigReqForm extends Component{
 
   validateDate(input){
     if(input === "Invalid date" || input === ''){
-      let newError = {date: 'Please select a valid date and time'}
+      let newError = {date: 'Please select a valid date'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
     } else {
