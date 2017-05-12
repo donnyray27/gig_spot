@@ -9,15 +9,15 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :gig_requests, only: [:index, :show, :update, :destroy] do
-    resources :auditions
+    resources :auditions, only: [:new]
   end
   resources :gigs, only: [:index]
 
 
   namespace :api do
     namespace :v1 do
-      resources :users do
-        resources :gigs
+      resources :users, only: [:index, :update] do
+        resources :gigs, only: [:index, :create, :update, :destroy]
         resources :user_tracks, only: [:create, :destroy]
       end
     end
@@ -25,24 +25,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users do
-        resources :genres
+      resources :gig_requests, only: [:index, :show, :update, :destroy]  do
+        resources :auditions, only: [:create, :destroy]
       end
     end
   end
 
   namespace :api do
     namespace :v1 do
-      resources :gig_requests do
-        resources :auditions
-      end
-    end
-  end
-
-  namespace :api do
-    namespace :v1 do
-      resources :gigs
-        resources :gigs, only: [:index]
+      resources :gigs, only: [:index, :create, :update, :destroy]
       end
     end
 

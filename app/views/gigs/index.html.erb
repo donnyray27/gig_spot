@@ -17,11 +17,6 @@
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
       //
-      function getMarkers() {
-
-      }
-      var markers = getMarkers();
-      var map, infoWindow;
       function initMap() {
 
 
@@ -38,15 +33,6 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            // var markers = getMarkers();
-            // console.log(markers)
-            //   debugger;
-            //   markers.forEach((marker) => {
-            //     new google.maps.Marker({
-            //       position: marker,
-            //       map: map
-            //     });
-            //   })
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('Your Location');
@@ -104,5 +90,5 @@
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=[api-key]&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap">
     </script>
