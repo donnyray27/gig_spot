@@ -21,7 +21,8 @@ class GigRequestShow extends Component{
       instrumentTags: [],
       description: '',
       location: '',
-      auditions: []
+      auditions: [],
+      errors: {}
     }
     this.handleDate = this.handleDate.bind(this)
     this.handlelogChange = this.handlelogChange.bind(this)
@@ -34,6 +35,10 @@ class GigRequestShow extends Component{
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteAudition = this.handleDeleteAudition.bind(this)
     this.handleLocation = this.handleLocation.bind(this)
+    this.validateTitle = this.validateTitle.bind(this)
+    this.validateDate = this.validateDate.bind(this)
+    this.validateLocation = this.validateLocation.bind(this)
+    this.validateDescription = this.validateDescription.bind(this)
   }
   componentWillMount(){
 
@@ -66,14 +71,47 @@ class GigRequestShow extends Component{
 
   }
 
+  validateDate(input){
+    if(input === "Invalid date" || input === ''){
+      let newError = {date: 'Please select a valid date and time'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else {
+      let errorState = this.state.errors
+      delete errorState.date
+      this.setState({ errors: errorState })
+      return true
+    }
+  }
 
   handleDate(event){
     let date = new Date(event._d)
     let goodDate = moment(date).format('ll');
+    this.validateDate(goodDate)
     this.setState({date: goodDate})
   }
 
+  validateLocation(input){
+    let regex = /^\s|^\s+/g
+    let regexTwo = /^[A-Za-z]+,[ ]?[A-Za-z]{2,}$/g
+    if(input.match(regex)){
+      let newError = {location: 'Location is a required field'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else if (!input.match(regexTwo)) {
+      let newError = {location: "Please enter in the form 'City, State'"}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    }else {
+      let errorState = this.state.errors
+      delete errorState.location
+      this.setState({ errors: errorState })
+      return true
+    }
+  }
+
   handleLocation(event){
+    this.validateLocation(event.target.value)
     this.setState({location: event.target.value})
   }
   handlelogChange(val){
@@ -84,11 +122,41 @@ class GigRequestShow extends Component{
     this.setState({instrumentTags: val})
   }
 
+  validateTitle(input){
+    let regex = /^\s|^\s+/g
+    if(input.match(regex)){
+      let newError = {heading: 'Heading is a required field'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else {
+      let errorState = this.state.errors
+      delete errorState.heading
+      this.setState({ errors: errorState })
+      return true
+    }
+  }
+
   handleTitle(event){
+    this.validateTitle(event.target.value)
     this.setState({title: event.target.value})
   }
 
+  validateDescription(input){
+    let regex = /^\s|^\s+/g
+    if(input.match(regex)){
+      let newError = {description: 'Description is a required field'}
+      this.setState({ errors: Object.assign(this.state.errors, newError) })
+      return false
+    } else {
+      let errorState = this.state.errors
+      delete errorState.description
+      this.setState({ errors: errorState })
+      return true
+    }
+  }
+
   handleDescription(event){
+    this.validateDescription(event.target.value)
     this.setState({description: event.target.value})
   }
 
@@ -183,6 +251,12 @@ class GigRequestShow extends Component{
     }
 
   render(){
+
+    let yesterday = Datetime.moment().subtract( 1, 'day' );
+    let valid = function( current ){
+        return current.isAfter( yesterday );
+    };
+
     let genreTags = this.state.gigRequest.genres.map(genre => {
       return(
         <Genre
@@ -226,7 +300,7 @@ class GigRequestShow extends Component{
     }
 
     let title = this.state.editable ? <h3><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h3> : <h1>{this.state.gigRequest.details.title}</h1>
-  let date = this.state.editable ? <h6 className="date-edit"><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
+  let date = this.state.editable ? <h6 className="date-edit"><Datetime isValidDate={valid} onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
   let genres = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.genreTags} options={genreOptions} onChange={this.handlelogChange}/> : <div>{genreTags}</div>
 let instruments = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.instrumentTags} options={instrumentOptions} onChange={this.handleInstChange}/> : <div>{instrumentTags}</div>
 let location = this.state.editable ? <h4><input type='text' defaultValue={this.state.location} onChange={this.handleLocation}/></h4> : <h3>{this.state.gigRequest.details.address}</h3>
