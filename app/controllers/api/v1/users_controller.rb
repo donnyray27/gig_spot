@@ -54,13 +54,19 @@ class Api::V1::UsersController < ApplicationController
       render json: user_instruments
     end
 
+    if params[:bioUpdate]
+      user.update(bio: params[:bioUpdate])
+      render json: user
+    end
+
   end
 
   private
   def user_params
     params.permit(
     :genreUpdate,
-    :instrumentUpdate
+    :instrumentUpdate,
+    :bioUpdate
     )
   end
 end

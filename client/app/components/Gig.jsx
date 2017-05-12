@@ -99,7 +99,13 @@ class Gig extends Component {
         {value: genre, label: genre}
       )
     })
-
+    let editGigButton;
+    if (this.props.validUser) {
+      editGigButton = <div>
+                        <td><button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button></td>
+                        <td><button onClick={this.props.handleDelete}>Delete</button></td>
+                      </div>
+    }
     let venue = this.state.editable ? <td><input type='text' defaultValue={this.props.venue} onChange={this.handleVenueChange} /></td> : <td>{this.props.venue}</td>;
     let address = this.state.editable ? <td><input type='text' defaultValue={this.props.address} onChange={this.handleAddressChange}/></td> : <td>{this.props.address}</td>;
     let dateTime = this.state.editable ? <td><Datetime onChange={this.handleDateTimeChange} defaultValue={this.state.dateTime} closeOnSelect={true}/></td> : <td>{this.state.dateTime}</td>;
@@ -112,8 +118,7 @@ class Gig extends Component {
         {dateTime}
         {description}
         {genreDisplay}
-        <td><button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button></td>
-        <td><button onClick={this.props.handleDelete}>Delete</button></td>
+        {editGigButton}
       </tr>
     )
   }

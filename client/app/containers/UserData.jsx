@@ -18,7 +18,9 @@ class UserData extends Component {
       gigRequests: this.props.gigRequests,
       addingAGig: false,
       editingGenre: false,
-      editingInstrument: false
+      editingInstrument: false,
+      bio: this.props.user.bio,
+      editingBio: false
     }
     this.handleGigUpdate = this.handleGigUpdate.bind(this)
     this.handleNewGig = this.handleNewGig.bind(this)
@@ -28,6 +30,9 @@ class UserData extends Component {
     this.handleEditGenre = this.handleEditGenre.bind(this)
     this.handleEditInstrument = this.handleEditInstrument.bind(this)
     this.handleInstrumentUpdate = this.handleInstrumentUpdate.bind(this)
+    this.handleBioUpdate = this.handleBioUpdate.bind(this)
+    this.handleEditBio = this.handleEditBio.bind(this)
+    this.handleBioChange = this.handleBioChange.bind(this)
   }
 
   handleEditInstrument(){
@@ -41,6 +46,14 @@ class UserData extends Component {
     this.setState({
       addingAGig: !this.state.addingAGig
     })
+  }
+
+  handleEditBio(){
+    this.setState({editingBio: !this.state.editingBio})
+  }
+
+  handleBioChange(event){
+    this.setState({bio: event.target.value})
   }
 
   handleGigDelete(id) {
@@ -178,36 +191,85 @@ class UserData extends Component {
       })
     }
 
+    handleBioUpdate(){
+      let userId = this.props.user.id
+      let update = {
+        bioUpdate: this.state.bio
+      }
+      fetch(`/api/v1/users/${userId}`, {
+      credentials: 'same-origin',
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(update)
+    })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+              error = new Error(errorMessage);
+          throw(error);
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        this.setState({
+          bio: response.bio,
+          editingBio: !this.state.editingBio
+        });
+      })
+    }
+
 
   render() {
 
-  let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig} allGenres={this.props.genresAll}/>
-                                        <button className="candy-button" onClick={this.handleCreate}>Cancel</button></div> :
-                                        <button className="candy-button" onClick={this.handleCreate}>Add a Gig</button>
+  let addGigButton;
+    if(this.props.validUser && !this.state.addingAGig){
+      addGigButton = <button className="candy-button" onClick={this.handleCreate}>Add a Gig</button>
+    }
 
+  let addGig = this.state.addingAGig ? <div><GigNew onClick={this.handleNewGig} allGenres={this.props.genresAll}/>
+                                          <button className="candy-button" onClick={this.handleCreate}>Cancel</button>
+                                        </div> : addGigButton
+
+  let editBioButton;
+    if(this.props.validUser && !this.state.editingBio){
+      editBioButton = <button className="candy-button" onClick={this.handleEditBio}>Edit</button>
+    }
+  let editBio = this.state.editingBio ? <div><h5><textarea className="bio-edit-field" type="text" value={this.state.bio} onChange={this.handleBioChange}></textarea></h5>
+                                      <button className="candy-button" onClick={this.handleBioUpdate}>Done</button></div> : <h5>{this.state.bio}</h5>
+
+  let editGenreButton;
+  if(this.props.validUser && !this.state.editingGenre){
+    editGenreButton = <button className="candy-button" onClick={this.handleEditGenre}>Edit</button>
+  }
   let editGenre = this.state.editingGenre ?
                         <GenreUpdateContainer
                                 allGenres={this.props.genresAll}
                                 userGenres={this.state.genres}
+                                onEdit = {this.handleEditGenre}
                                 onUpdate={this.handleGenreUpdate}
                                 /> : <div>
                                       <GenresContainer
                                         genres={this.state.genres}/>
-                                      <button className="candy-button" onClick={this.handleEditGenre}>Edit</button>
                                     </div>
 
+  let instrumentEditButton;
+    if(this.props.validUser && !this.state.editingInstrument){
+      instrumentEditButton = <button className="candy-button" onClick={this.handleEditInstrument}>Edit</button>
+    }
 
-
-  let editInstrument = this.state.editingInstrument ?
+  let editInstrument =  this.state.editingInstrument ?
                                     <div><InstrumentUpdateContainer
                                             allInstruments={this.props.instrumentsAll}
                                             userInstruments={this.state.instruments}
                                             onUpdate={this.handleInstrumentUpdate}
                                             />
-                                        </div> : <div>
-                                                  <InstrumentsContainer instruments={this.state.instruments}/>
-                                                  <button className="candy-button" onClick={this.handleEditInstrument}>Edit</button>
-                                                </div>
+                                        </div> : <InstrumentsContainer instruments={this.state.instruments}/>
+
+
+
     return(
       <div className ="row">
         <div className="profile-details">
@@ -215,7 +277,8 @@ class UserData extends Component {
 
         <fieldset>
           <legend>Bio</legend>
-          <h5>{this.state.user.bio}</h5>
+          {editBio}
+          {editBioButton}
         </fieldset>
 
       <div className="row inst-genre">
@@ -223,12 +286,14 @@ class UserData extends Component {
     <fieldset>
         <legend>Instruments</legend>
         {editInstrument}
+        {instrumentEditButton}
       </fieldset>
     </div>
     <div className="column small-12 large-6 tag-field">
       <fieldset>
         <legend>Genre(s)</legend>
         {editGenre}
+        {editGenreButton}
       </fieldset>
     </div>
     </div>
@@ -242,6 +307,7 @@ class UserData extends Component {
             onUpdate={this.handleGigUpdate}
             handleGigDelete={this.handleGigDelete}
             genres={this.props.genresAll}
+            validUser={this.props.validUser}
           />
           {addGig}
         </fieldset>

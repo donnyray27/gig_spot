@@ -30,6 +30,7 @@ class GigsContainer extends Component {
           allGenres = {this.props.genres}
           handleUpdate={this.onUpdate}
           handleDelete={this.onDelete.bind(this, gig.data.id)}
+          validUser={this.props.validUser}
           />
       )
     })

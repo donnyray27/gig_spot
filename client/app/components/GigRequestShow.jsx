@@ -176,6 +176,7 @@ class GigRequestShow extends Component{
           />
       )
     })
+
     let genreOptions = this.props.allGenres.map(genre => {
       return(
         {value: genre, label: genre}
@@ -196,6 +197,18 @@ class GigRequestShow extends Component{
         {value: instrument, label: instrument}
       )
     })
+    let editDeleteButtons;
+    if (this.props.validUser) {
+      editDeleteButtons= <div>
+                          <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button> | <button onClick={this.handleDelete}>Delete</button>
+                        </div>
+    }
+
+    let auditionTab;
+    let auditionVideos;
+    if (this.props.validUser) {
+      auditionTab = <Tab>Auditions</Tab>
+    }
 
     let title = this.state.editable ? <h3><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h3> : <h1>{this.state.gigRequest.details.title}</h1>
   let date = this.state.editable ? <h6 className="date-edit"><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
@@ -208,7 +221,7 @@ let description = this.state.editable ? <h5><textarea type='text' defaultValue={
         <Tabs>
            <TabList>
              <Tab>Info</Tab>
-             <Tab>Auditions</Tab>
+             {auditionTab}
            </TabList>
 
            <TabPanel>
@@ -223,7 +236,7 @@ let description = this.state.editable ? <h5><textarea type='text' defaultValue={
              {instruments}
              {location}
              {description}
-             <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button> | <button onClick={this.handleDelete}>Delete</button>
+             {editDeleteButtons}
              <br/>
              <br/>
              <button className="go-to-audition"><a href={'/gig_requests/' + this.state.id + '/auditions/new'}>Submit an Audition for this Gig</a></button>

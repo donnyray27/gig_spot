@@ -6,11 +6,16 @@ class UserTrack extends Component{
   }
 
   render(){
+    let deleteButton;
+
+    if (this.props.validUser) {
+      deleteButton = <button className="candy-button" onClick={this.props.onDelete}>Remove</button>
+    }
     return(
       <div className="column column-block small-centered spotify-tracks">
       <iframe src={'https://open.spotify.com/embed?uri=' + this.props.uri}
               width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
-            <button className="candy-button" onClick={this.props.onDelete}>Remove</button>
+          {deleteButton}
       </div>
     )
   }

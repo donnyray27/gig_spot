@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user_tracks = @user.user_tracks
     @all_genres = Genre.all.order(name: :asc).pluck(:name)
     @all_instruments = Instrument.all.order(name: :asc).pluck(:name)
+    @valid_user = validate_user(@user)
 
 
   end
