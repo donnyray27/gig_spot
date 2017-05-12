@@ -100,7 +100,7 @@ class GigRequestIndex extends Component{
                                               allInstruments={this.props.allInstruments}
                                               onSubmit={this.handleNewGigReq}
                                               onCancel={this.handleFormToggle}/> :
-                                              <div>
+                                              <div className="row column new-gig-button">
                                                 <button className="enjoy-css" onClick={this.handleFormToggle}>Post a Request</button>
                                               </div>
 

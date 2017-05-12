@@ -7,13 +7,14 @@ class SpotifyContainer extends Component{
     this.state = {
       query: '',
       results: [],
-      justSearched: false,
-      tracks: []
+      tracks: [],
+      noSearchResults: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSearchQuery = this.handleSearchQuery.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.clearSearch = this.clearSearch.bind(this)
   }
 
   componentWillMount(){
@@ -47,7 +48,7 @@ class SpotifyContainer extends Component{
     .then(response => {
       this.setState({
         tracks: response,
-        justSearched: false});
+        clearQuery: true})
     })
   }
 
@@ -72,9 +73,18 @@ class SpotifyContainer extends Component{
     .then(response => {
       this.setState({
         tracks: response,
-        justSearched: false});
+        clearQuery: true});
     })
     }
+  }
+
+  clearSearch(event){
+    event.preventDefault()
+    this.setState({
+      results: [],
+      noSearchResults: false,
+      query: ''
+    })
   }
 
   handleSubmit(event){
@@ -97,15 +107,12 @@ class SpotifyContainer extends Component{
     })
     .then(response => response.json())
     .then(response => {
-      this.setState({
-        results: response.tracks.items,
-        justSearched: !this.state.justSearched});
+      
     })
   }
   render(){
     let results;
-    if(this.state.justSearched === true){
-      if(this.state.results.length > 1){
+    if(this.state.noSearchResults === false){
       results = this.state.results.map(result => {
         return(
           <SpotifyObject
@@ -116,13 +123,15 @@ class SpotifyContainer extends Component{
             artist={result.artists[0].name}
             album={result.album.name}
             onSubmit={this.handleAdd.bind(this, result.uri)}/>
-          )
-        })}else{
-          results = <h5>Your search didn't yield any results</h5>
-        }
-    }else{
-      results = null
-    }
+        )}
+        )
+      }else if (this.state.query === '') {
+        result = null
+      }else {
+        result = <h3>Your search didn't yield any results</h3>
+      }
+
+
 
     let tracks = this.state.tracks.map(track => {
       return(
@@ -142,15 +151,16 @@ class SpotifyContainer extends Component{
           <div className="row small-up-1 medium-up-2 large-up-4 spotify-tracks">
           {tracks}
             </div>
-        <form>
+        <form className="spotify-search-form">
           <label>Add Your Tracks from Spotify:</label>
-          <input type="query" onChange={this.handleSearchQuery}/>
-          <input type="submit" onClick={this.handleSubmit} value="Search"/>
+          <input type="query" value={this.state.query} onChange={this.handleSearchQuery}/>
+          <input type="submit" onClick={this.handleSubmit} value="Search"/> |
+          <input type="submit" onClick={this.clearSearch} value="Clear" />
 
         </form>
-
+        <div className="row small-up-1 medium-up-2 large-up-2">
           {results}
-
+        </div>
         </fieldset>
       </div>
     </div>

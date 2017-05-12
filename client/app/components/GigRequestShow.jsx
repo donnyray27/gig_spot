@@ -197,12 +197,12 @@ class GigRequestShow extends Component{
       )
     })
 
-    let title = this.state.editable ? <h1><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h1> : <h1>{this.state.gigRequest.details.title}</h1>
-  let date = this.state.editable ? <h6><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
+    let title = this.state.editable ? <h3><input type='text' defaultValue={this.state.title} onChange={this.handleTitle}/></h3> : <h1>{this.state.gigRequest.details.title}</h1>
+  let date = this.state.editable ? <h6 className="date-edit"><Datetime onChange={this.handleDate} timeFormat={false} defaultValue={this.state.date} closeOnSelect={true}/></h6> : <h5>Gig Date: {this.state.date}</h5>
   let genres = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.genreTags} options={genreOptions} onChange={this.handlelogChange}/> : <div>{genreTags}</div>
 let instruments = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.instrumentTags} options={instrumentOptions} onChange={this.handleInstChange}/> : <div>{instrumentTags}</div>
-let location = this.state.editable ? <h3><input type='text' defaultValue={this.state.location} onChange={this.handleLocation}/></h3> : <h3>{this.state.gigRequest.details.address}</h3>
-let description = this.state.editable ? <h3><textarea type='text' defaultValue={this.state.description} onChange={this.handleDescription}></textarea></h3> : <h3>{this.state.gigRequest.details.description}</h3>
+let location = this.state.editable ? <h4><input type='text' defaultValue={this.state.location} onChange={this.handleLocation}/></h4> : <h3>{this.state.gigRequest.details.address}</h3>
+let description = this.state.editable ? <h5><textarea type='text' defaultValue={this.state.description} onChange={this.handleDescription}></textarea></h5> : <h3>{this.state.gigRequest.details.description}</h3>
     return(
       <div>
         <Tabs>
@@ -215,7 +215,9 @@ let description = this.state.editable ? <h3><textarea type='text' defaultValue={
             <div className="row">
              <div className="gig-req-show">
              {title}
-             <a href={'/users/' + this.state.gigRequest.user.id}><h4>Posted by {this.state.gigRequest.user.first_name} {this.state.gigRequest.user.last_name}</h4></a>
+             <a href={'/users/' + this.state.gigRequest.user.id}>
+               <h4>Posted by {this.state.gigRequest.user.first_name} {this.state.gigRequest.user.last_name}</h4>
+              </a>
              {date}
              {genres}
              {instruments}

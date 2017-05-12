@@ -245,7 +245,7 @@ class UserData extends Component {
           />
           {addGig}
         </fieldset>
-        </div>
+
           <br />
           <br />
           <fieldset>
@@ -254,6 +254,7 @@ class UserData extends Component {
           gigRequests={this.state.gigRequests}
           />
         </fieldset>
+        </div>
         </div>
       </div>
 

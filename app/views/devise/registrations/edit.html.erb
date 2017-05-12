@@ -1,7 +1,16 @@
+<div class="edit-user">
+
+<div class="row">
+  <div class="edit-form">
+
+
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+
+  <div class="errors callout warning no-bullet">
+    <%= devise_error_messages! %>
+  </div>
 
     <p>
     <label>My Avatar</label>
@@ -54,3 +63,6 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+</div>
+</div>
+  </div>

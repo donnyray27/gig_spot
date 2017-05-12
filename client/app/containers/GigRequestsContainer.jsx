@@ -16,7 +16,6 @@ class GigRequestsContainer extends Component {
             title={gigRequest.title}
             updatedAt={gigRequest.updated_at}
             />
-
       )
     })
     return(

@@ -34,6 +34,7 @@ class GigsContainer extends Component {
       )
     })
     return(
+      <div className="gigs-table">
     <table>
       <thead>
         <tr>
@@ -44,10 +45,12 @@ class GigsContainer extends Component {
           <th>Genre(s)</th>
         </tr>
       </thead>
+
       <tbody>
         {gigs}
       </tbody>
     </table>
+  </div>
     )
   }
 }

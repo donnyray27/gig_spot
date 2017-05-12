@@ -23,7 +23,6 @@
   -o-background-size: cover;
   background-size: cover;
   background-color: black;
-  height: 200em;
 }
 
 .gig-date {
@@ -35,6 +34,7 @@
     color: black;
   }
 }
+
 .profile-details {
   h1 {
     font-weight: bold;
@@ -50,7 +50,7 @@
     font-size: 20px;
   }
   td {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -69,10 +69,30 @@
 
 .gigs {
   color: white;
+  th{
+    background: #091D35;
+    color: white;
+  }
 }
 
+.gigs-table {
+  height: 400px;
+  width: 100%;
+  overflow: scroll;
+}
+
+.gig-reqs-profile:hover {
+  background-color: #C2C7CC;
+  a:hover{
+    color: #091D35;
+  }
+}
 .candy-button {
 color: white;
+}
+
+.spotify-search-form {
+  margin: 1em;
 }
 
 .spotify-container {
@@ -86,6 +106,12 @@ color: white;
 .spotify-object {
   color: white;
   margin: 0.5em;
+  display: inline-block;
+
+  p{
+    display: inline-block;
+  }
+  border-bottom: solid;
 }
 
 .spotify-tracks {
