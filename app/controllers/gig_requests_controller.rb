@@ -1,5 +1,5 @@
 class GigRequestsController < ApplicationController
-
+before_action :require_login
 
   def index
     @gig_requests = []
@@ -105,6 +105,8 @@ class GigRequestsController < ApplicationController
   end
 
   def destroy
+    require 'uri'
+    require 'net/http'
     gig_request = GigRequest.find(params[:id])
     gig_request_instruments = GigRequestInstrument.where(gig_request_id: gig_request.id)
     gig_request_genres = GigRequestGenre.where(gig_request_id: gig_request.id)
@@ -123,27 +125,28 @@ class GigRequestsController < ApplicationController
 
     unless gig_request_auditions.empty?
       gig_request_auditions.each do |audition|
+        video_id = audition.video_id
+
+        url = URI("https://api.addpipe.com/video/#{video_id}")
+
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = true
+        request = Net::HTTP::Delete.new(url)
+        request["x-pipe-auth"] = ENV['PIPE_API_KEY']
+        request["content-type"] = 'application/json'
+        request["cache-control"] = 'no-cache'
+
+
+        response = http.request(request)
+        puts response.read_body
         audition.destroy
       end
     end
 
     gig_request.destroy
 
-    @gig_requests = []
-    all_gig_requests = GigRequest.all
-    all_gig_requests.each do |gig_request|
-      gig_genres = gig_request.genres.pluck(:name)
-      gig_instruments = gig_request.instruments.pluck(:name)
-      gig_auditions = gig_requested.auditions.pluck(:name)
-      gig_poster = gig_request.user
-      @gig_requests << {
-                          details: gig_request,
-                          genres: gig_genres,
-                          instruments: gig_instruments,
-                          auditions: gig_auditions,
-                          user: gig_poster
-                        }
-    end
+    flash.now[:notice] = "Request Successfully Deleted"
+    redirect_to controller: "gig_requests", action: "index"
   end
 
   private

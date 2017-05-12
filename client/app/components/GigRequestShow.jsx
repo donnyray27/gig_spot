@@ -158,14 +158,29 @@ class GigRequestShow extends Component{
 
     handleDeleteAudition(id){
       let gigId = this.state.gigRequest.details.id
-    if(confirm("Are you sure you want to delete this?") == true){
-      fetch(`/api/v1/gig_requests/${gigId}/auditions/${id}`, {
-      credentials: 'same-origin',
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
-      })
+        if(confirm("Are you sure you want to delete this?") == true){
+          fetch(`/api/v1/gig_requests/${gigId}/auditions/${id}`, {
+          credentials: 'same-origin',
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+          })
+
+        .then(response => {
+          if (response.ok) {
+            return response;
+          } else {
+            let errorMessage = `${response.status} (${response.statusText})`,
+                error = new Error(errorMessage);
+            throw(error);
+          }
+        })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+          this.setState({ auditions: response });
+        })
+      }
     }
-  }
 
   render(){
     let genreTags = this.state.gigRequest.genres.map(genre => {

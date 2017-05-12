@@ -1,6 +1,6 @@
 class Api::V1::UserTracksController < ApplicationController
 
-
+before_action :require_login
   def create
     user = User.find(params[:user_id])
     user_track = UserTrack.new(user_track_params)

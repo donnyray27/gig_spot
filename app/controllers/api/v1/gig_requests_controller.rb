@@ -1,7 +1,7 @@
 class Api::V1::GigRequestsController < ApplicationController
 
 
-
+before_action :require_login
   def create
     user = current_user
     gig_req = GigRequest.create(
@@ -96,11 +96,18 @@ class Api::V1::GigRequestsController < ApplicationController
     gig_requested = GigRequest.find(params[:id])
     gig_genres = gig_requested.genres.pluck(:name)
     gig_instruments = gig_requested.instruments.pluck(:name)
+    audition_data = gig_requested.auditions.pluck(:id, :name)
+    gig_auditions = audition_data.map do |audition|
+      this_audition = Audition.find(audition[0])
+      audition_user = this_audition.user
+      audition << audition_user
+    end
     gig_poster = gig_requested.user
     @gig_request = {
       details: gig_requested,
       genres: gig_genres,
       instruments: gig_instruments,
+      auditions: gig_auditions,
       user: gig_poster
     }
     render json: @gig_request

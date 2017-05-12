@@ -1,6 +1,6 @@
 class Api::V1::AuditionsController < ApplicationController
 
-
+before_action :require_login
   def create
     user = current_user
     gig_req_id = params[:gig_request_id].to_i
@@ -31,18 +31,23 @@ class Api::V1::AuditionsController < ApplicationController
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     request = Net::HTTP::Delete.new(url)
-    request["x-pipe-auth"] = ENV["PIPE_API_KEY"]
-    binding.pry
+    request["x-pipe-auth"] = ENV['PIPE_API_KEY']
     request["content-type"] = 'application/json'
     request["cache-control"] = 'no-cache'
-
 
     response = http.request(request)
     puts response.read_body
 
-    # audition.destroy
-    binding.pry
-    render json: gig_request
+    audition.destroy
+
+    audition_data = gig_request.auditions.pluck(:id, :name)
+    gig_auditions = audition_data.map do |audition|
+      this_audition = Audition.find(audition[0])
+      audition_user = this_audition.user
+      audition << audition_user
+    end
+    flash.now[:notice] = "Audition Deleted"
+    render json: gig_auditions
   end
 
   private

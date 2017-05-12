@@ -1,6 +1,6 @@
 class Api::V1::GigsController < ApplicationController
 
-
+before_action :require_login
   def index
     @gigs = Gig.all
     @hash = Gmaps4rails.build_markers(@gigs) do |gig, marker|

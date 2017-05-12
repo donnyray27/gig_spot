@@ -1,5 +1,5 @@
 class AuditionsController < ApplicationController
-
+before_action :require_login
   def new
     gig_request = GigRequest.find(params[:gig_request_id])
     gig_genres = gig_request.genres.pluck(:name)
