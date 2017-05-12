@@ -8,7 +8,7 @@ class SpotifyContainer extends Component{
       query: '',
       results: [],
       tracks: [],
-      noSearchResults: false
+      justSearched: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSearchQuery = this.handleSearchQuery.bind(this)
@@ -48,7 +48,9 @@ class SpotifyContainer extends Component{
     .then(response => {
       this.setState({
         tracks: response,
-        clearQuery: true})
+        query: '',
+        justSearched: false
+        })
     })
   }
 
@@ -73,7 +75,8 @@ class SpotifyContainer extends Component{
     .then(response => {
       this.setState({
         tracks: response,
-        clearQuery: true});
+        query: '',
+        justSearched: false});
     })
     }
   }
@@ -82,8 +85,8 @@ class SpotifyContainer extends Component{
     event.preventDefault()
     this.setState({
       results: [],
-      noSearchResults: false,
-      query: ''
+      query: '',
+      justSearched: false
     })
   }
 
@@ -107,30 +110,31 @@ class SpotifyContainer extends Component{
     })
     .then(response => response.json())
     .then(response => {
-      
+      this.setState({
+        results: response.tracks.items,
+        justSearched: true})
     })
   }
   render(){
     let results;
-    if(this.state.noSearchResults === false){
-      results = this.state.results.map(result => {
-        return(
-          <SpotifyObject
-            key={result.id}
-            img={result.album.images[2].url}
-            preview={result.preview_url}
-            name={result.name}
-            artist={result.artists[0].name}
-            album={result.album.name}
-            onSubmit={this.handleAdd.bind(this, result.uri)}/>
-        )}
-        )
-      }else if (this.state.query === '') {
-        result = null
-      }else {
-        result = <h3>Your search didn't yield any results</h3>
-      }
-
+    if(this.state.justSearched === true){
+      if(this.state.results.length > 1){
+        results = this.state.results.map(result => {
+          return(
+            <SpotifyObject
+              key={result.id}
+              img={result.album.images[2].url}
+              preview={result.preview_url}
+              name={result.name}
+              artist={result.artists[0].name}
+              album={result.album.name}
+              onSubmit={this.handleAdd.bind(this, result.uri)}/>
+          )}
+          )
+        }else {
+          results = <h4 className="no-results">Your search didn't yield any results</h4>
+        }
+      }else{ results = null }
 
 
     let tracks = this.state.tracks.map(track => {

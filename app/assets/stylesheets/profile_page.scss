@@ -107,7 +107,6 @@ color: white;
   color: white;
   margin: 0.5em;
   display: inline-block;
-
   p{
     display: inline-block;
   }
@@ -116,4 +115,8 @@ color: white;
 
 .spotify-tracks {
   padding-bottom: 2em;
+}
+
+.no-results {
+  padding-left: 1em;
 }
