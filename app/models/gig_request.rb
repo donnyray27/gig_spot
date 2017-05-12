@@ -1,6 +1,8 @@
 class GigRequest < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
+  validates :address, presence: true
+  validates :event_date, presence: true
 
   belongs_to :user
   has_many :gig_request_genres

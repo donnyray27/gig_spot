@@ -1,6 +1,8 @@
 class Gig < ApplicationRecord
   validates :venue, presence: true
   validates :address, presence: true
+  validates :event_date, presence: true
+
 
   belongs_to :user
   has_many :gig_genres
@@ -9,8 +11,6 @@ class Gig < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
 
-end
 
-# <% for location in @location.nearbys(30) %>
-#
-# <% end %>
+
+end
