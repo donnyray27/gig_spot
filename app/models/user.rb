@@ -6,8 +6,10 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :first_name,
+  format: { with: /\A[a-zA-Z]+\z/, message: "is invalid or blank"}
+  validates :last_name,
+  format: { with: /\A[a-zA-Z]+\z/, message: "is invalid or blank"}
   validates :email, presence: true
 
   has_many :user_genres
