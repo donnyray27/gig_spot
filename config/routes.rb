@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :gig_requests, only: [:index, :show, :update, :destroy]  do
+      resources :gig_requests, only: [:index, :show, :create, :update, :destroy]  do
         resources :auditions, only: [:create, :destroy]
       end
     end
