@@ -215,7 +215,7 @@ class GigRequestShow extends Component{
     let editDeleteButtons;
     if (this.props.validUser) {
       editDeleteButtons= <div>
-                          <button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button> | <button onClick={this.handleDelete}>Delete</button>
+                          <button className="inverted-candy" onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button> | <button className="inverted-candy" onClick={this.handleDelete}>Delete</button>
                         </div>
     }
 

@@ -20,6 +20,10 @@
   }
 }
 
+.inverted-candy:hover{
+  color: #8BB3E5;
+}
+
 .date-edit{
   th{
     background-color: #091D35;
@@ -32,7 +36,10 @@
   display: inline-block;
 }
 
-
+.gig-tile-row{
+  padding: 15px;
+  margin: 10px;
+}
 .go-to-audition {
   a {
     color: white;
