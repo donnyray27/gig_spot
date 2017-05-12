@@ -32,7 +32,7 @@ class GigReqForm extends Component{
 
   validateTitle(input){
     let regex = /^\s|^\s+/g
-    if(input.match(regex)){
+    if(input.match(regex) || input === ''){
       let newError = {heading: 'Heading is a required field'}
       this.setState({ errors: Object.assign(this.state.errors, newError) })
       return false
