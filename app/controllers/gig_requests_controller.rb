@@ -40,6 +40,7 @@ class GigRequestsController < ApplicationController
     }
     @all_genres = Genre.all.pluck(:name)
     @all_instruments = Instrument.all.pluck(:name)
+    @valid_user = validate_user(gig_poster)
   end
 
   def update

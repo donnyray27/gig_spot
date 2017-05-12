@@ -142,9 +142,19 @@ class SpotifyContainer extends Component{
         <UserTrack
         key={track.id}
         uri={track.spotify_uri}
-        onDelete={this.handleDelete.bind(this, track.id)}/>
+        onDelete={this.handleDelete.bind(this, track.id)}
+        validUser={this.props.validUser}/>
       )
     })
+    let spotifySearch;
+    if (this.props.validUser) {
+      spotifySearch = <form className="spotify-search-form">
+                        <label>Add Your Tracks from Spotify:</label>
+                        <input type="query" value={this.state.query} onChange={this.handleSearchQuery}/>
+                        <input type="submit" onClick={this.handleSubmit} value="Search"/> | <input type="submit" onClick={this.clearSearch} value="Clear" />
+                      </form>
+
+    }
 
 
     return(
@@ -155,13 +165,7 @@ class SpotifyContainer extends Component{
           <div className="row small-up-1 medium-up-2 large-up-4 spotify-tracks">
           {tracks}
             </div>
-        <form className="spotify-search-form">
-          <label>Add Your Tracks from Spotify:</label>
-          <input type="query" value={this.state.query} onChange={this.handleSearchQuery}/>
-          <input type="submit" onClick={this.handleSubmit} value="Search"/> |
-          <input type="submit" onClick={this.clearSearch} value="Clear" />
-
-        </form>
+            {spotifySearch}
         <div className="row small-up-1 medium-up-2 large-up-2">
           {results}
         </div>

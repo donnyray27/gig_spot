@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   user_path(resource)
   end
 
+  def validate_user(user)
+     current_user == user
+  end
+
 end

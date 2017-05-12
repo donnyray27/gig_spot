@@ -7,7 +7,9 @@
 </div>
 <div class="row avatar-update">
   <div class="small-3 small-centered columns">
-    <%= link_to "Edit Acct Details", edit_user_registration_path %>
+    <% if @valid_user %>
+      <%= link_to "Edit Acct Details", edit_user_registration_path %>
+    <% end %>
   </div>
 </div>
 
@@ -18,9 +20,11 @@
                                   gigRequests: @user_gig_requests,
                                   bandRequests: @user_band_requests,
                                   genresAll: @all_genres,
-                                  instrumentsAll: @all_instruments}) %>
+                                  instrumentsAll: @all_instruments,
+                                  validUser: @valid_user}) %>
 
 <%= react_component("SpotifyContainer", props: {user: @user,
-                                                tracks: @user_tracks}) %>
+                                                tracks: @user_tracks,
+                                                validUser: @valid_user}) %>
 
 </div>
