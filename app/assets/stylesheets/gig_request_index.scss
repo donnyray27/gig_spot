@@ -16,30 +16,62 @@
 }
 .gig-tile-row{
   font-size: 20px;
+  a:hover {
+    color: #091D35;
+  }
 }
 
 .gig-tile-row:hover{
-  background-color: #8BB3E5;
+  background-color: #C2C7CC;
 }
 
 .gig-req-table {
-  padding-top: 3em;
+  padding-top: 4em;
 }
 
 .search-error {
   color: white;
   text-align: center;
+  margin-top: 1em;
 }
 
+.search-div {
+  color: white;
+  padding-top: 2em;
+  label{
+    font-size: 20px;
+  }
+}
+
+.outer-and-or {
+  text-align: center;
+}
+
+.circle{
+  width:100px;
+  height:100px;
+  border-radius:100%;
+  font-size:20px;
+  font-weight:bold;
+  color:#fff;
+  line-height:90px;
+  text-align:center;
+  position: static;
+  background:#091D35;
+  border-style: groove;
+  border-color: white;
+}
+
+.new-gig-button {
+  margin-top: 2em;
+  text-align: center;
+}
 
 
 .enjoy-css {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  position: fixed;
-  top: 50%;
-  right: 4em;
   z-index:9999;
     margin-top:-15px;
       margin-right: 20px;

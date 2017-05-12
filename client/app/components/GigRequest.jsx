@@ -15,7 +15,7 @@ componentWillMount(){
 
   render(){
     return(
-      <tr>
+      <tr className="gig-reqs-profile">
         <td><a href={'/gig_requests/' + this.props.id}>{this.props.title}</a></td>
         <td>{this.state.dateUpdated}</td>
       </tr>

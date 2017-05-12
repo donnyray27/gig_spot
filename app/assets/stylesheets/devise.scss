@@ -32,3 +32,33 @@
   display: inline-block;
   padding-right: 1em;
 }
+
+.edit-user {
+  background-color: black;
+}
+
+.edit-form{
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+  padding: 2em;
+  margin-top: 2em;
+
+  label {
+    color: black;
+  }
+  a{
+    color: black;
+  }
+}
+
+.errors {
+  font-size: 20px;
+text-align: center;
+h2{
+  font-size: 20px;
+}
+ul{
+  list-style: none;
+}
+}

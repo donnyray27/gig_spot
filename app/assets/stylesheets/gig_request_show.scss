@@ -1,6 +1,7 @@
 .gig-show-page {
   height: 50em;
 }
+
 .gig-req-show {
   text-align: center;
   a {
@@ -9,7 +10,26 @@
   a:hover{
     color: #8BB3E5;
   }
+  input{
+    width: 100%;
+    text-align: center;
+  }
+  textarea{
+    height: 7em;
+    width: 100%;
+  }
+}
 
+.date-edit{
+  th{
+    background-color: #091D35;
+    color: white;
+  }
+
+  td {
+    background-color: #CACCD0;
+  }
+  display: inline-block;
 }
 
 

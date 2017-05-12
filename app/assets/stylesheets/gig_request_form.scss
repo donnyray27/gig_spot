@@ -14,7 +14,7 @@
   border-radius: 10px;
   padding-top: 1em;
   z-index:9999;
-  top: 30%;
+  top: 33%;
   right: 2em;
 
 
@@ -24,9 +24,13 @@
   input {
     width: 100%;
   }
+  th{
+    background-color: #091D35;
+    color: white;
+  }
 
   td {
-    background-color: #E0E3E6;
+    background-color: #CACCD0;
   }
 }
 
