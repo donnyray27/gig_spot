@@ -252,6 +252,15 @@ class GigRequestShow extends Component{
 
   render(){
 
+    let errorDiv;
+    let errorItems;
+    if (Object.keys(this.state.errors).length > 0) {
+      errorItems = Object.values(this.state.errors).map(error => {
+        return(<li key={error}>{error}</li>)
+      })
+      errorDiv = <div className="callout alert no-bullet">{errorItems}</div>
+    }
+
     let yesterday = Datetime.moment().subtract( 1, 'day' );
     let valid = function( current ){
         return current.isAfter( yesterday );
@@ -305,6 +314,9 @@ class GigRequestShow extends Component{
 let instruments = this.state.editable ? <Select name="form-field-name" multi={true} value={this.state.instrumentTags} options={instrumentOptions} onChange={this.handleInstChange}/> : <div>{instrumentTags}</div>
 let location = this.state.editable ? <h4><input type='text' defaultValue={this.state.location} onChange={this.handleLocation}/></h4> : <h3>{this.state.gigRequest.details.address}</h3>
 let description = this.state.editable ? <h5><textarea type='text' defaultValue={this.state.description} onChange={this.handleDescription}></textarea></h5> : <h3>{this.state.gigRequest.details.description}</h3>
+
+
+
     return(
       <div>
         <Tabs>
@@ -315,6 +327,7 @@ let description = this.state.editable ? <h5><textarea type='text' defaultValue={
 
            <TabPanel>
             <div className="row">
+              {errorDiv}
              <div className="gig-req-show">
              {title}
              <a href={'/users/' + this.state.gigRequest.user.id}>

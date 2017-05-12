@@ -1,9 +1,19 @@
 .map-page {
   text-align: center;
+  background: url('/assets/MjtxO6s_Fotor.jpg') center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   background-color: black;
 }
 
 #map{
   text-align: center;
   margin: 5em;
+}
+
+.catch-a-gig{
+  color: white;
+  padding-top: 3em;
 }
