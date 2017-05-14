@@ -44,7 +44,7 @@ class GenreUpdateContainer extends Component{
         })
 
         return(
-          <div>
+          <div className="genre-select">
             <Select
               name="Genres"
               multi={true}

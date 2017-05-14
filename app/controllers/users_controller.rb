@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authorize_admin, except: [:show]
 
   def index
+    @white_page = true
     @users = User.where("role = 'member'").order(first_name: :asc)
   end
 

@@ -282,9 +282,9 @@ class UserData extends Component {
         </fieldset>
 
       <div className="row inst-genre">
-        <div className="column small-12 large-6 tag-field">
+        <div className="column small-12 large-6 tag-field-instrument">
     <fieldset>
-        <legend>Instruments</legend>
+        <legend>Instrument(s)</legend>
         {editInstrument}
         {instrumentEditButton}
       </fieldset>

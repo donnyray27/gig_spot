@@ -20,6 +20,7 @@ before_action :require_login
   end
 
   def show
+    @white_page = true
     @gig_request = {}
     gig_requested = GigRequest.find(params[:id])
     gig_genres = gig_requested.genres.pluck(:name)

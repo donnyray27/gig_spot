@@ -165,7 +165,7 @@ class GigNew extends Component{
           <tr>
             <td><input type='text' onChange={this.handleVenue} value={this.state.venue} placeholder="Required"/></td>
             <td><input type='text' onChange={this.handleAddress} value={this.state.address} placeholder="Required "/></td>
-            <td className="gig-date"><Datetime onChange={this.handleDateTime} defaultValue='' closeOnSelect={true} placeholder="Required"/></td>
+            <td className="gig-date"><Datetime onChange={this.handleDateTime} defaultValue='' placeholder="Required"/></td>
             <td><input type='text' onChange={this.handleDescription} value={this.state.description}/></td>
             <td><button onClick={this.handleClick}>Submit</button></td>
           </tr>
