@@ -59,6 +59,22 @@ before_action :require_login
       render json: user
     end
 
+
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    user.instruments.destroy_all
+    user.genres.destroy_all
+    user.gig_requests.destroy_all
+    user.gigs.destroy_all
+    user.auditions.destroy_all
+    user.user_tracks.destroy_all
+    user.delete
+
+    @users = User.where("role = 'member'").order(first_name: :asc)
+
+    render json: @users
   end
 
   private
@@ -66,7 +82,8 @@ before_action :require_login
     params.permit(
     :genreUpdate,
     :instrumentUpdate,
-    :bioUpdate
+    :bioUpdate,
+    :id
     )
   end
 end

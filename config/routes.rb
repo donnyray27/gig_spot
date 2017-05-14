@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       root to: "devise/sessions#new"
   end
 
-  resources :users, only: [:show]
+  resources :users, only: [:index, :show]
   resources :gig_requests, only: [:index, :show, :update, :destroy] do
     resources :auditions, only: [:new]
   end
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :update] do
+      resources :users, only: [:index, :update, :destroy] do
         resources :gigs, only: [:index, :create, :update, :destroy]
         resources :user_tracks, only: [:create, :destroy]
       end

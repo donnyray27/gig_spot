@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_action :require_login
+  before_action :authorize_admin, except: [:show]
+
   def index
+    @users = User.where("role = 'member'").order(first_name: :asc)
   end
 
   def show
@@ -23,7 +26,14 @@ class UsersController < ApplicationController
     @all_genres = Genre.all.order(name: :asc).pluck(:name)
     @all_instruments = Instrument.all.order(name: :asc).pluck(:name)
     @valid_user = validate_user(@user)
-
-
   end
+
+  def authorize_admin
+  if !user_signed_in?
+    raise ActionController::RoutingError.new("Not Found")
+  elsif !current_user.is_admin?
+    raise ActionController::RoutingError.new("Not Found")
+  end
+end
+
 end
