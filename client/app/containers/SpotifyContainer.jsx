@@ -166,6 +166,9 @@ class SpotifyContainer extends Component{
           {tracks}
             </div>
             {spotifySearch}
+            <p className="disclaimer">
+            Note: You must be signed into your Spotify account to preview these tracks. Create an account <a href='https://www.spotify.com/us/'>here</a>
+          </p>
         <div className="row small-up-1 medium-up-2 large-up-2">
           {results}
         </div>

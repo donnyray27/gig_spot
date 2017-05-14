@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { should have_valid(:first_name).when('testname', 'myname') }
-  it { should_not have_valid(:first_name).when(nil, 123) }
+  it { should_not have_valid(:first_name).when(nil) }
   it { should have_valid(:last_name).when('testname', 'myname') }
-  it { should_not have_valid(:last_name).when(nil, 123) }
+  it { should_not have_valid(:last_name).when(nil) }
   it { should_not have_valid(:email).when(nil, "", "user") }
 
   it "has a matching password confirmation for the password" do
