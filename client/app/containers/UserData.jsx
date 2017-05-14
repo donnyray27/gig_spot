@@ -74,7 +74,6 @@ class UserData extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response)
       this.setState({ gigs: response});
     })
     }
@@ -99,7 +98,6 @@ class UserData extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        console.log(response)
         this.setState({ gigs: response});
       })
   }
@@ -124,7 +122,6 @@ class UserData extends Component {
         })
         .then(response => response.json())
         .then(response => {
-          console.log(response)
           this.setState({
             gigs: response,
             addingAGig: !this.state.addingAGig
@@ -154,7 +151,6 @@ class UserData extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        console.log(response)
         this.setState({
           genres: response,
           editingGenre: !this.state.editingGenre});
@@ -183,7 +179,6 @@ class UserData extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        console.log(response)
         this.setState({
           instruments: response,
           editingInstrument: !this.state.editingInstrument
@@ -213,7 +208,6 @@ class UserData extends Component {
       })
       .then(response => response.json())
       .then(response => {
-        console.log(response)
         this.setState({
           bio: response.bio,
           editingBio: !this.state.editingBio

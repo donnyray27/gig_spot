@@ -8,13 +8,7 @@ class InstrumentsIndex extends Component{
     console.log("Selected: " + val);
   }
   render(){
-    /*let instrumentCheckboxes = this.props.allInstruments.map(instrumentCheckBox => {
-      return(
-        <div key={instrumentCheckBox.id}>
-          <input id={instrumentCheckBox.id} type="checkbox" /><label for={instrumentCheckBox.name}>{instrumentCheckBox.name}</label>
-        </div>
-      )
-    })*/
+
     let options = [
         { value: 'one', label: 'One' },
         { value: 'two', label: 'Two' }

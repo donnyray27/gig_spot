@@ -30,7 +30,6 @@ class Admin extends Component{
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response)
       this.setState({ users: response});
     })
     }

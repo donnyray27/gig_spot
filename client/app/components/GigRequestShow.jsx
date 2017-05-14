@@ -210,7 +210,6 @@ class GigRequestShow extends Component{
         })
         .then(response => response.json())
         .then(response => {
-          console.log(response)
           this.setState({ gigRequest: response});
         })
     }
@@ -255,7 +254,6 @@ class GigRequestShow extends Component{
         })
         .then(response => response.json())
         .then(response => {
-          console.log(response)
           this.setState({ auditions: response });
         })
       }

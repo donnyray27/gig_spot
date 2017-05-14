@@ -41,7 +41,6 @@ class GigRequestIndex extends Component{
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response)
       if(response.length < 1){
         this.setState({noSearchResults: true})
       }else{
@@ -73,7 +72,6 @@ class GigRequestIndex extends Component{
         })
         .then(response => response.json())
         .then(response => {
-          console.log(response)
           this.setState({ gigReqs: response});
         })
         this.setState({newRequest: !this.state.newRequest})

@@ -66,7 +66,6 @@ class Gig extends Component {
   }
 
   handleEdit() {
-    console.log('edit button clicked');
     let venue = this.state.venue;
     let address = this.state.address;
     let dateTime = this.state.dateTime

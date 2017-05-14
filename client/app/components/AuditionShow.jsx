@@ -10,12 +10,6 @@ class AuditionShow extends Component{
     }
   }
 
-  componentWillMount(){
-    // let date = new Date(this.props.gigRequest.details.event_date)
-    // let goodDate = moment(date).add(4, 'hours').format('ll');
-    // this.setState({date: goodDate})
-    console.log(this.props)
-  }
   render(){
     let genreTags = this.props.gigRequest.genres.map(genre => {
       return(
