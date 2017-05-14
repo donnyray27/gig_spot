@@ -6,10 +6,8 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :first_name,
-  format: { with: /\A[a-zA-Z]+\z/, message: "is invalid or blank"}
-  validates :last_name,
-  format: { with: /\A[a-zA-Z]+\z/, message: "is invalid or blank"}
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :email, presence: true
 
   has_many :user_genres
@@ -20,9 +18,13 @@ class User < ApplicationRecord
 
   has_many :gigs
   has_many :gig_requests
-  has_many :band_requests
 
   has_many :auditions
   has_many :user_tracks
+
+
+  def is_admin?
+      self.role == "admin"
+  end
 
 end

@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_user(user)
-     current_user == user
+     current_user == user || current_user.is_admin?
   end
 
 end
