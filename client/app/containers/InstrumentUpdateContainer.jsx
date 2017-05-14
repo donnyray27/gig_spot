@@ -44,7 +44,7 @@ class InstrumentUpdateContainer extends Component{
         })
 
         return(
-          <div>
+          <div className='instrument-select'>
             <Select
               name="Instruments"
               multi={true}
