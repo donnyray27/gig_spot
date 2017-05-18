@@ -15,84 +15,129 @@ before_action :require_login
     gig = Gig.new(gig_params)
     gig.event_date = params[:dateTime]
     user = User.find(params[:user_id])
-    gig.user = user
-    gig.save
-    if params[:genres]
-      params[:genres].each do |genre|
-        genre = Genre.find_by(name: genre)
-        GigGenre.create(gig_id: gig.id, genre_id: genre.id)
+    if user == current_user
+      gig.user = user
+      gig.save
+      if params[:genres]
+        params[:genres].each do |genre|
+          genre = Genre.find_by(name: genre)
+          GigGenre.create(gig_id: gig.id, genre_id: genre.id)
+        end
       end
-    end
-    user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
+      user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
 
-    user_gigs_json = []
-    user_gigs.each do |gig|
-      user_gigs_json << {
-                      data: gig,
-                      genres: gig.genres.pluck(:name)
-      }
-    end
+      user_gigs_json = []
+      user_gigs.each do |gig|
+        user_gigs_json << {
+                        data: gig,
+                        genres: gig.genres.pluck(:name)
+        }
+      end
 
-    render json: user_gigs_json
+      render json: user_gigs_json
+    else
+      user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
+
+      user_gigs_json = []
+      user_gigs.each do |gig|
+        user_gigs_json << {
+                        data: gig,
+                        genres: gig.genres.pluck(:name)
+        }
+      end
+
+      render json: user_gigs_json
+      flash[:alert] = 'Unauthorized User. Could not create record.'
+    end
   end
 
   def update
     gig = Gig.find(params[:gig][:id])
-    gig.update(gig_params)
-    gig.update(event_date: params[:dateTime])
-    gig_genres = gig.genres.pluck(:name)
-    fetched_genres = params[:genres]
+    if gig.user == current_user
+        gig.update(gig_params)
+        gig.update(event_date: params[:dateTime])
+        gig_genres = gig.genres.pluck(:name)
+        fetched_genres = params[:genres]
 
-    if params[:genres]
-      compare = gig_genres & fetched_genres
-      fetched_genres -= compare
-      gig_genres -= compare
+        if params[:genres]
+          compare = gig_genres & fetched_genres
+          fetched_genres -= compare
+          gig_genres -= compare
 
-      fetched_genres.each do |addition|
-        genre = Genre.find_by(name: addition)
-        GigGenre.create(gig_id: gig.id, genre_id: genre.id)
+          fetched_genres.each do |addition|
+            genre = Genre.find_by(name: addition)
+            GigGenre.create(gig_id: gig.id, genre_id: genre.id)
+          end
+
+          gig_genres.each do |subtraction|
+            genre = Genre.find_by(name: subtraction)
+            delete = GigGenre.find_by(gig_id: gig.id, genre_id: genre.id)
+            delete.destroy
+          end
+        end
+
+        user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
+
+        user_gigs_json = []
+        user_gigs.each do |gig|
+          user_gigs_json << {
+                          data: gig,
+                          genres: gig.genres.pluck(:name)
+          }
+        end
+
+        render json: user_gigs_json
+    else
+      user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
+
+      user_gigs_json = []
+      user_gigs.each do |gig|
+        user_gigs_json << {
+                        data: gig,
+                        genres: gig.genres.pluck(:name)
+        }
       end
 
-      gig_genres.each do |subtraction|
-        genre = Genre.find_by(name: subtraction)
-        delete = GigGenre.find_by(gig_id: gig.id, genre_id: genre.id)
-        delete.destroy
-      end
+      render json: user_gigs_json
+      flash.now[:alert] = 'Unauthorized User. Could not update record.'
     end
-
-    user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
-
-    user_gigs_json = []
-    user_gigs.each do |gig|
-      user_gigs_json << {
-                      data: gig,
-                      genres: gig.genres.pluck(:name)
-      }
-    end
-
-    render json: user_gigs_json
   end
 
   def destroy
     gig = Gig.find(params[:id])
-    gig_genres = gig.genres
-    unless gig_genres.empty?
-      gig_genres.each do |gig_genre|
-        gig_genre.destroy
+    if gig.user == current_user
+        gig_genres = gig.genres
+        unless gig_genres.empty?
+          gig_genres.each do |gig_genre|
+            gig_genre.destroy
+          end
+        end
+        gig.destroy
+        user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
+
+        user_gigs_json = []
+        user_gigs.each do |gig|
+          user_gigs_json << {
+                          data: gig,
+                          genres: gig.genres.pluck(:name)
+          }
+        end
+
+        render json: user_gigs_json
+    else
+      user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
+
+      user_gigs_json = []
+      user_gigs.each do |gig|
+        user_gigs_json << {
+                        data: gig,
+                        genres: gig.genres.pluck(:name)
+        }
       end
-    end
-    gig.destroy
-    user_gigs = Gig.where(user_id: params[:user_id]).order(event_date: :desc)
 
-    user_gigs_json = []
-    user_gigs.each do |gig|
-      user_gigs_json << {
-                      data: gig,
-                      genres: gig.genres.pluck(:name)
-      }
+      render json: user_gigs_jso
+      flash.now[:alert] = 'Unauthorized User. Could not update record.'
     end
-
-    render json: user_gigs_json
   end
 
   private

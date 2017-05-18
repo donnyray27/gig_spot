@@ -109,42 +109,46 @@ before_action :require_login
     require 'uri'
     require 'net/http'
     gig_request = GigRequest.find(params[:id])
-    gig_request_instruments = GigRequestInstrument.where(gig_request_id: gig_request.id)
-    gig_request_genres = GigRequestGenre.where(gig_request_id: gig_request.id)
-    gig_request_auditions = Audition.where(gig_request_id: gig_request.id)
-    unless gig_request_instruments.empty?
-      gig_request_instruments.each do |instrument|
-        instrument.destroy
+    if gig_request.user == current_user
+      gig_request_instruments = GigRequestInstrument.where(gig_request_id: gig_request.id)
+      gig_request_genres = GigRequestGenre.where(gig_request_id: gig_request.id)
+      gig_request_auditions = Audition.where(gig_request_id: gig_request.id)
+      unless gig_request_instruments.empty?
+        gig_request_instruments.each do |instrument|
+          instrument.destroy
+        end
       end
-    end
 
-    unless gig_request_genres.empty?
-      gig_request_genres.each do |genre|
-        genre.destroy
+      unless gig_request_genres.empty?
+        gig_request_genres.each do |genre|
+          genre.destroy
+        end
       end
-    end
 
-    unless gig_request_auditions.empty?
-      gig_request_auditions.each do |audition|
-        video_id = audition.video_id
+      unless gig_request_auditions.empty?
+        gig_request_auditions.each do |audition|
+          video_id = audition.video_id
 
-        url = URI("https://api.addpipe.com/video/#{video_id}")
+          url = URI("https://api.addpipe.com/video/#{video_id}")
 
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = true
-        request = Net::HTTP::Delete.new(url)
-        request["x-pipe-auth"] = ENV['PIPE_API_KEY']
-        request["content-type"] = 'application/json'
-        request["cache-control"] = 'no-cache'
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          request = Net::HTTP::Delete.new(url)
+          request["x-pipe-auth"] = ENV['PIPE_API_KEY']
+          request["content-type"] = 'application/json'
+          request["cache-control"] = 'no-cache'
 
 
-        response = http.request(request)
-        puts response.read_body
-        audition.destroy
+          response = http.request(request)
+          puts response.read_body
+          audition.destroy
+        end
       end
-    end
 
-    gig_request.destroy
+      gig_request.destroy
+    else
+      flash[:alert] = 'Unauthorized User. Could not delete record.'
+    end
 
 
   end
